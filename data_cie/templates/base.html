@@ -1,0 +1,175 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    #info_city{
+        width: 100%;
+    }
+    #info_prev{
+        width: 100%;
+        display:flex;
+        justify-content: space-evenly;
+        position: fixed;
+    }
+    #info_city input{
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+        font-size: 25px;
+    }
+    #info_city label{
+        display: flex;
+        /* justify-content: center; */
+        text-align:center;
+        width: 100%;
+        border: 1px solid;
+        font-size:25px;
+        position:fixed;
+        left:0;
+    }
+    form button img{
+        width: 20px;
+    }
+    #info_prev span{
+        border: 1px solid;
+        margin-left:20px ;
+
+        display: flex;
+        align-items:center;
+        flex-direction: column;
+        width:100%;
+    }
+    #info_prev div{
+        width: 98.5%;
+        background-color: aqua;
+        height: 7px;
+        position: fixed;
+        left: 0;
+        margin:210px 10px;
+    }
+    #info_prev span input{
+        text-align: center;
+    }
+    </style>
+    
+</head>
+<body>
+    <h1>{{city}} {{region}}</h1>
+    <form action="{%url 'home0'%}" enctype="multipart/form-data" method="POST">{%csrf_token%}
+        <input name="cidade_input" type="text" placeholder="Insira a Cidade Aqui...">
+        <button><img src="https://www.svgrepo.com/show/450490/search.svg"></button>
+    </form>
+
+    <section id="info_city">
+        <label id="label_temp" for="temp">Temperatura</label>
+        <input id='temp' type="text" value='{{temperatura}}' readonly='true'>
+        
+        <label id="label_humidity" for="humidity">Umidade</label>
+        <input id='humidity' type="text" value='{{humidity}}' readonly='true'>
+
+        <label id="label_windchill" for="windchill">Sensação Termica</label>
+        <input id='windchill' type="text" value='{{windchill}}' readonly='true'>
+        
+        <label id="label_probabilidade" for="windchill">Probabilidade de Chuva</label>
+        <input id='probabilidade' type="text" value='{{preci_probabilidade}}' readonly='true'>
+        
+        <label id="label_max" for="windchill">Máxima</label>
+        <input id='tmp_max' type="text" value='{{tmp_max}}' readonly='true'>
+        
+        <label id="label_min" for="windchill">Mínima</label>
+        <input id='tmp_min' type="text" value='{{tmp_min}}' readonly='true'>
+        <img src="{{icon_ref}}">
+    </section>
+    <section id="info_prev">
+        <span>
+            <p>{{data0}}</p>
+            <input id='max_tmp0' type="text" value="{{tmp_max0}}" readonly="true">
+            <label for="max_tmp0">Máxima</label>
+            <input id='min_tmp0' type="text" value="{{tmp_min0}}" readonly="true">
+            <label for="min_tmp0">Mínima</label>
+            <input id='humidity_prev0' type="text" value="{{humidity_prev0}}" readonly="true">
+            <label id='label_humidity_prev0' for="humidity_prev">Umidade</label>
+            <input id='preci_prev0' type="text" value="{{preci_prev0}}" readonly="true">
+            <label id="label_prec_prev0" for="prec_prev" >Probabilidade de Chuva</label>
+            <img src="{{icon_tmp0}}">
+        </span>
+        <span>
+            <p>{{data1}}</p>
+            <input id='max_tmp1' type="text" value="{{tmp_max1}}" readonly="true">
+            <label for="max_tmp1">Máxima</label>
+            <input id='min_tmp1' type="text" value="{{tmp_min1}}" readonly="true">
+            <label for="min_tmp1">Mínima</label>
+            <input id='humidity_prev1' type="text" value="{{humidity_prev1}}" readonly="true">
+            <label id='label_humidity_prev1' for="humidity_prev">Umidade</label>
+            <input id='preci_prev1' type="text" value="{{preci_prev1}}" readonly="true">
+            <label id="label_prec_prev1" for="prec_prev" >Probabilidade de Chuva</label>
+            <img src="{{icon_tmp1}}">
+        </span>
+        <span>
+            <p>{{data2}}</p>
+            <input id='max_tmp2' type="text" value="{{tmp_max2}}" readonly="true">
+            <label for="max_tmp2">Máxima</label>
+            <input id='min_tmp2' type="text" value="{{tmp_min2}}" readonly="true">
+            <label for="min_tmp2">Mínima</label>
+            <input id='humidity_prev2' type="text" value="{{humidity_prev2}}" readonly="true">
+            <label id='label_humidity_prev2' for="humidity_prev">Umidade</label>
+            <input id='preci_prev2' type="text" value="{{preci_prev2}}" readonly="true">
+            <label id="label_prec_prev2" for="prec_prev" >Probabilidade de Chuva</label>
+            <img src="{{icon_tmp2}}">
+        </span>
+        <span>
+            <p>{{data3}}</p>
+            <input id='max_tmp3' type="text" value="{{tmp_max3}}" readonly="true">
+            <label for="max_tmp3">Máxima</label>
+            <input id='min_tmp3' type="text" value="{{tmp_min3}}" readonly="true">
+            <label for="min_tmp3">Mínima</label>
+            <input id='humidity_prev3' type="text" value="{{humidity_prev3}}" readonly="true">
+            <label id='label_humidity_prev3' for="humidity_prev">Umidade</label>
+            <input id='preci_prev3' type="text" value="{{preci_prev3}}" readonly="true">
+            <label id="label_prec_prev3" for="prec_prev" >Probabilidade de Chuva</label>
+            <img src="{{icon_tmp3}}">
+        </span>
+        <span>
+            <p>{{data4}}</p>
+            <input id='max_tmp4' type="text" value="{{tmp_max4}}" readonly="true">
+            <label for="max_tmp4">Máxima</label>
+            <input id='min_tmp4' type="text" value="{{tmp_min4}}" readonly="true">
+            <label for="min_tmp4">Mínima</label>
+            <input id='humidity_prev4' type="text" value="{{humidity_prev4}}" readonly="true">
+            <label id='label_humidity_prev4' for="humidity_prev">Umidade</label>
+            <input id='preci_prev4' type="text" value="{{preci_prev4}}" readonly="true">
+            <label id="label_prec_prev4" for="prec_prev" >Probabilidade de Chuva</label>
+            <img src="{{icon_tmp4}}">
+        </span>
+        <span>
+            <p>{{data5}}</p>
+            <input id='max_tmp5' type="text" value="{{tmp_max5}}" readonly="true">
+            <label for="max_tmp5">Máxima</label>
+            <input id='min_tmp5' type="text" value="{{tmp_min5}}" readonly="true">
+            <label for="min_tmp5">Mínima</label>
+            <input id='humidity_prev5' type="text" value="{{humidity_prev5}}" readonly="true">
+            <label id='label_humidity_prev5' for="humidity_prev">Umidade</label>
+            <input id='preci_prev5' type="text" value="{{preci_prev5}}" readonly="true">
+            <label id="label_prec_prev5" for="prec_prev" >Probabilidade de Chuva</label>
+            <img src="{{icon_tmp5}}">
+        </span>
+        <div></div>
+    </section>
+<script> 
+    //retira o evento de click no input 
+    for(a=0;a<document.querySelectorAll('#info_city input').length;a++){
+        document.querySelectorAll('#info_city label')[a].style.pointerEvents='none'
+        document.querySelectorAll('#info_city input')[a].style.pointerEvents='none'
+    }
+
+    
+
+</script>
+</body>
+</html>
