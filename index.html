@@ -183,17 +183,19 @@
                     <option>Feijão</option>
                     <option>Açucar</option>
                 </select>
-                <label for="id_txt">ID</label>
-                <input id='id_txt' type="number" readonly="true" >
-                <label for="nome">Nome do Produto</label>
-                <input id="nome" type="text" placeholder="Nome do Produto">
-                <label for="marca">Marca do Produto</label>
-                <input id="marca" type="text" placeholder="Marca do Produto">
-                <label for="Unidade">Quantidade</label>
-                <input id="unidade" placeholder="Unidade por Pack" type="number">
-                <label for="peso">Peso do Produto Kg</label>
-                <input id="peso" type="number" step="0.01" > 
-                <button id="confirma_cadastro">CADASTRAR</button>
+                <div style='display:none;' id='formulario_geral'> 
+                    <label for="id_txt">ID</label>
+                    <input id='id_txt' type="number" readonly="true" >
+                    <label for="nome">Nome do Produto</label>
+                    <input id="nome" type="text" placeholder="Nome do Produto">
+                    <label for="marca">Marca do Produto</label>
+                    <input id="marca" type="text" placeholder="Marca do Produto">
+                    <label for="Unidade">Quantidade</label>
+                    <input id="unidade" placeholder="Unidade por Pack" type="number">
+                    <label for="peso">Peso do Produto Kg</label>
+                    <input id="peso" type="number" step="0.01" > 
+                    <button id="confirma_cadastro">CADASTRAR</button>
+                </div>
             </span>
             <span id="span_c" style="z-index: 0;">C</span>
         </div>
@@ -254,32 +256,33 @@
         event_target=''
         event_target0=''
         document.querySelector('select').addEventListener('change', 
-        function(event){
-            for(a=0;a<document.querySelectorAll('#span_b input').length;a++){
-                    document.querySelectorAll('#span_b input')[a].value=''
-                };
-            if(event.target.value=='Pack Completo'){
-                
-                document.querySelector('#select_a').style.display='block'
-                document.querySelector('#peso').readOnly='true'
-                document.querySelector('#peso').style.pointerEvents='none'
-                event_target=event.target.value
-            }
-            if(event.target.value=='Unidade Fracionada'){
-                document.querySelector('#select_a').style.display='none'
-                document.querySelector('#peso').readOnly=''
-                document.querySelector('#peso').style.pointerEvents=''
-                event_target=event.target.value}
-            if(event.target.value=='Personalizado'){
-                document.querySelector('#select_a').style.display='none'
-                document.querySelector('#peso').readOnly=''
-                document.querySelector('#peso').style.pointerEvents=''
-                event_target=event.target.value}
-            if(event.target.value=='Selecionar'){
-                document.querySelector('#select_a').style.display='none'
-                document.querySelector('#peso').readOnly=''
-                document.querySelector('#peso').style.pointerEvents=''
-                event_target=event.target.value}
+            function(event){
+                for(a=0;a<document.querySelectorAll('#span_b input').length;a++){
+                        document.querySelectorAll('#span_b input')[a].value=''
+                    };
+                if(event.target.value=='Pack Completo'){
+                    document.querySelector('#formulario_geral').style.display='block'
+                    document.querySelector('#select_a').style.display='block'
+                    document.querySelector('#peso').readOnly='true'
+                    document.querySelector('#peso').style.pointerEvents='none'
+                    event_target=event.target.value
+                }
+                if(event.target.value=='Unidade Fracionada'){
+                    document.querySelector('#select_a').style.display='block'
+                    document.querySelector('#peso').readOnly=''
+                    document.querySelector('#peso').style.pointerEvents=''
+                    event_target=event.target.value}
+                if(event.target.value=='Personalizado'){
+                    document.querySelector('#formulario_geral').style.display='block'
+                    document.querySelector('#select_a').style.display='none'
+                    document.querySelector('#peso').readOnly=''
+                    document.querySelector('#peso').style.pointerEvents=''
+                    event_target=event.target.value}
+                if(event.target.value=='Selecionar'){
+                    document.querySelector('#select_a').style.display='none'
+                    document.querySelector('#peso').readOnly=''
+                    document.querySelector('#peso').style.pointerEvents=''
+                    event_target=event.target.value}
         });
 
         document.querySelector('#select_a').addEventListener('change', function(e){
