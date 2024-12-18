@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    body form{
+        width: 100%;
+        display:flex;
+        position: fixed;
+        justify-content: center;
+    }
+    form input{
+        width:75%;
+    }
+    form button img{
+        width: 20px;
+    }
+    </style>
+</head>
+<body style="text-align:center;">
+    <form action="{%url 'home0'%}" enctype="multipart/form-data" method="POST">{%csrf_token%}
+        <input name="cidade_input" type="text" placeholder="Insira a Cidade Aqui...">
+        <button><img src="https://www.svgrepo.com/show/450490/search.svg"></button>
+    </form>
+    <section id="grafico_teste" style="display:flex;justify-content: center;align-items: center;">
+        <div style="display:flex;flex-direction:column;position:absolute;top:185px;margin-left:-605px;">
+            <p style="position:fixed;top:45px;margin-left:128px;">50°</p>
+            <p style="position:fixed;top:100px;margin-left:128px;">40°</p>
+            <p style="position:fixed;top:145px;margin-left:128px;">30°</p>
+            <p style="position:fixed;top:195px;margin-left:128px;">20°</p>
+            <p style="position:fixed;top:245px;margin-left:128px;">10°</p>
+            <p style="position:fixed;top:290px;margin-left:130px;">0°</p>
+            <hr style="transform: rotate(90deg);width: 300px;">
+        </div>
+        <div  id="background_grafico" style="background-color: aqua;height:325px;width:660px;position:fixed;z-index: -1;top:25px;">
+        </div>
+        <div style="display:flex;flex-direction: row;position:fixed;top:310px;margin-left:65px;">
+            <p style="margin-right: 50px;">{{data0}}</p>
+            <p style="margin-right: 50px;">{{data1}}</p>
+            <p style="margin-right: 50px;">{{data2}}</p>
+            <p style="margin-right: 50px;">{{data3}}</p>
+            <p style="margin-right: 50px;">{{data4}}</p>
+            <p style="margin-right: 50px;">{{data5}}</p>
+            <hr style="position:fixed;width: 635px;margin-left:-35px;top:316px;">
+        </div>
+        <div id="coluna_grafico" style="display:flex;flex-direction: row;position:fixed;transform:rotate(180deg);margin-top:1240px;margin-left:955px;">
+            <p style="position:fixed;top:288px;left:187px;background-color: blue;width:25px; height: {{padding_valor0}}px;">a</p>
+            <p style="position:fixed;top:288px;left:293px; background-color: blue;width:25px; height: {{padding_valor1}}px;">a</p>
+            <p style="position:fixed;top:288px;left:400px; background-color: blue;width:25px; height: {{padding_valor2}}px;">a</p>
+            <p style="position:fixed;top:288px;left:508px; background-color: blue;width:25px; height: {{padding_valor3}}px;">a</p>
+            <p style="position:fixed;top:288px;left:616px; background-color: blue;width:25px; height: {{padding_valor4}}px;">a</p>
+            <p style="position:fixed;top:288px;left:722px; background-color: blue;width:25px; height: {{padding_valor5}}px;">a</p>
+        </div>
+    </section>
+    
+<script>
+    
+</script>    
+</body>
+</html>
