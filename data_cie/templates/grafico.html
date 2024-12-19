@@ -1,0 +1,207 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Rubik+Burned&display=swap');
+    body form{
+        width: 100%;
+        display:flex;
+        position: fixed;
+        justify-content: center;
+    }
+    form input{
+        width:75%;
+    }
+    form button img{
+        width: 20px;
+    }
+    #coluna_grafico p{
+        color:black;
+        text-shadow:4px 1px aliceblue;
+        -webkit-text-stroke:medium;
+    }
+    #grafico_teste div p{
+        font-family: "Caveat", serif;
+        font-size:medium;
+    }
+    </style>
+</head>
+<body style="text-align:center;">
+    <form action="{%url 'home0'%}" enctype="multipart/form-data" method="POST">{%csrf_token%}
+        <input name="cidade_input" type="text" placeholder="Insira a Cidade Aqui...">
+        <button><img src="https://www.svgrepo.com/show/450490/search.svg"></button>
+    </form>
+    <section id="grafico_teste" style="display:flex;justify-content: center;align-items: center;">
+        <div style="display:flex;flex-direction:column;position:absolute;top:185px;margin-left:-605px;">
+
+            <div style="display:flex ;position: fixed;flex-direction:column;margin-left:150px;top:60px;">
+                <hr style="width: 632px;">
+                <hr style="width: 632px;margin-top:47px;">
+                <hr style="width: 632px;margin-top:35px;">
+                <hr style="width: 632px;margin-top:42px;">
+                <hr style="width: 632px;margin-top:40px;">
+            </div>
+            <p style="position:fixed;top:45px;margin-left:128px;">50°</p>
+            <p style="position:fixed;top:100px;margin-left:128px;">40°</p>
+            <p style="position:fixed;top:145px;margin-left:128px;">30°</p>
+            <p style="position:fixed;top:195px;margin-left:128px;">20°</p>
+            <p style="position:fixed;top:245px;margin-left:128px;">10°</p>
+            <p style="position:fixed;top:290px;margin-left:130px;">0°</p>
+            <hr style="transform: rotate(90deg);width: 300px;">
+        </div>
+        <div  id="background_grafico" style="background-color: aqua;height:325px;width:660px;position:fixed;z-index: -1;top:25px;border-radius: 5px;box-shadow: 3px 3px 6px;">
+        </div>
+        <div style="display:flex;flex-direction: row;position:fixed;top:310px;margin-left:65px;">
+            <p style="margin-right: 50px;">{{data0}}</p>
+            <p style="margin-right: 50px;">{{data1}}</p>
+            <p style="margin-right: 50px;">{{data2}}</p>
+            <p style="margin-right: 50px;">{{data3}}</p>
+            <p style="margin-right: 50px;">{{data4}}</p>
+            <p style="margin-right: 50px;">{{data5}}</p>
+            <hr style="position:fixed;width: 635px;margin-left:-35px;top:316px;">
+        </div>
+        <div id="coluna_grafico" style="display:flex;flex-direction: row;position:fixed;transform:rotate(180deg);margin-top:1240px;margin-left:955px;">
+            <p style="position:fixed;top:288px;left:187px;background-color: blue;width:25px; height: {{padding_valor5}}px;"></p>
+            <p style="position:fixed;margin-left:721px;top:490px;">{{temp_0}}</p>
+            <p style="position:fixed;top:288px;left:293px; background-color: blue;width:25px; height: {{padding_valor4}}px;"></p>
+            <p style="position:fixed;margin-left:615px;top:490px;">{{temp_1}}</p>
+            <p style="position:fixed;top:288px;left:400px; background-color: blue;width:25px; height: {{padding_valor3}}px;"></p>
+            <p style="position:fixed;margin-left:507px;top:490px;">{{temp_2}}</p>
+            <p style="position:fixed;top:288px;left:508px; background-color: blue;width:25px; height: {{padding_valor2}}px;"></p>
+            <p style="position:fixed;margin-left:399px;top:490px;">{{temp_3}}</p>
+            <p style="position:fixed;top:288px;left:616px; background-color: blue;width:25px; height: {{padding_valor1}}px;"></p>
+            <p style="position:fixed;margin-left:293px;top:490px;">{{temp_4}}</p>
+            <p style="position:fixed;top:288px;left:722px; background-color: blue;width:25px; height: {{padding_valor0}}px;"></p>
+            <p style="position:fixed;margin-left:186px;top:490px;">{{temp_5}}</p>
+        </div>
+    </section>
+    
+
+    <section id="grafico_teste0" style="display:flex;justify-content: center;align-items: center;">
+        <div style="display:flex;flex-direction:column;position:absolute;bottom:151px;margin-left:-1000px;">
+            <p style="position:fixed;bottom:260px;margin-left:113px;">50°</p>
+            <p style="position:fixed;bottom:215px;margin-left:113px;">40°</p>
+            <p style="position:fixed;bottom:170px;margin-left:113px;">30°</p>
+            <p style="position:fixed;bottom:125px;margin-left:113px;">20°</p>
+            <p style="position:fixed;bottom:80px;margin-left:113px;">10°</p>
+            <p style="position:fixed;bottom:35px;margin-left:118px;">0°</p>
+            <hr style="transform: rotate(90deg);width: 275px;">
+        </div>
+        <div  id="background_grafico" style="background-color: aqua;height:280px;width:1060px;position:fixed;z-index: -1;bottom:20px;border-radius: 5px;box-shadow: 3px 3px 6px;">
+        </div>
+        <div style="display:flex;flex-direction: row;position:fixed;bottom:7px;margin-left:15px;">
+            <p style="margin-right: 5px;">{{data_0}}</p>
+            <p style="margin-right: 5px;">{{data_1}}</p>
+            <p style="margin-right: 5px;">{{data_2}}</p>
+            <p style="margin-right: 5px;">{{data_3}}</p>
+            <p style="margin-right: 5px;">{{data_4}}</p>
+            <p style="margin-right: 5px;">{{data_5}}</p>
+            <p style="margin-right: 5px;">{{data_6}}</p>
+            <p style="margin-right: 5px;">{{data_7}}</p>
+            <p style="margin-right: 5px;">{{data_8}}</p>
+            <p style="margin-right: 5px;">{{data_9}}</p>
+            <p style="margin-right: 5px;">{{data_00}}</p>
+            <p style="margin-right: 5px;">{{data_01}}</p>
+            <p style="margin-right: 5px;">{{data_02}}</p>
+            <p style="margin-right: 5px;">{{data_03}}</p>
+            <p style="margin-right: 5px;">{{data_04}}</p>
+            <p style="margin-right: 5px;">{{data_05}}</p>
+            <p style="margin-right: 5px;">{{data_06}}</p>
+            <p style="margin-right: 5px;">{{data_07}}</p>
+            <p style="margin-right: 5px;">{{data_08}}</p>
+            <p style="margin-right: 5px;">{{data_09}}</p>
+            <p style="margin-right: 5px;">{{data_10}}</p>
+            <p style="margin-right: 5px;">{{data_11}}</p>
+            <p style="margin-right: 5px;">{{data_12}}</p>
+            <p style="margin-right: 5px;">{{data_13}}</p>
+            <hr style="position:fixed;width:1040px;margin-left:-35px;bottom:40px;">
+        </div>
+        <div id="coluna_grafico" style="display:flex;flex-direction: row;position:fixed;transform:rotate(180deg);bottom:-255px;margin-left:955px;">
+            <p style="position:fixed;top:288px;left:944px;background-color: blue;width:10px; height: {{valor_0}}px;"></p>
+            <p style="position: fixed;left:938px;top:500px;">{{tmp_0}}</p>
+            <hr style='width:277px;transform: rotate(90deg);position: fixed;bottom:-425px;margin-left:810px;'>
+            <p style="position:fixed;top:288px;left:902px; background-color: blue;width:10px; height: {{valor_1}}px;"></p>
+            <p style="position: fixed;left:895px;top:500px;">{{tmp_1}}</p>
+            <hr style='width:277px;transform: rotate(90deg);position: fixed;bottom:-425px;margin-left:769px;'>
+            <p style="position:fixed;top:288px;left:861px; background-color: blue;width:10px; height: {{valor_2}}px;"></p>
+            <p style="position: fixed;left:855px;top:500px;">{{tmp_2}}</p>
+            <hr style='width:277px;transform: rotate(90deg);position: fixed;bottom:-425px;margin-left:727px;'>
+            <p style="position:fixed;top:288px;left:819px; background-color: blue;width:10px; height: {{valor_3}}px;"></p>
+            <p style="position: fixed;left:812px;top:500px;">{{tmp_3}}</p>
+            <hr style='width:277px;transform: rotate(90deg);position: fixed;bottom:-425px;margin-left:685px;'>
+            <p style="position:fixed;top:288px;left:778px; background-color: blue;width:10px; height: {{valor_4}}px;"></p>
+            <p style="position: fixed;left:770px;top:500px;">{{tmp_4}}</p>
+            <hr style='width:277px;transform: rotate(90deg);position: fixed;bottom:-425px;margin-left:644px;'>
+            <p style="position:fixed;top:288px;left:737px; background-color: blue;width:10px; height: {{valor_5}}px;"></p>
+            <p style="position: fixed;left:733px;top:500px;">{{tmp_5}}</p>
+            <hr style='width:277px;transform: rotate(90deg);position: fixed;bottom:-425px;margin-left:602px;'>
+            <p style="position:fixed;top:288px;left:695px;background-color: blue;width:10px; height: {{valor_00}}px;"></p>
+            <p style="position: fixed;left:688px;top:500px;">{{tmp_6}}</p>
+            <hr style='width:277px;transform: rotate(90deg);position: fixed;bottom:-425px;margin-left:560px;'>
+            <p style="position:fixed;top:288px;left:654px; background-color: blue;width:10px; height: {{valor_01}}px;"></p>
+            <p style="position: fixed;left:646px;top:500px;">{{tmp_7}}</p>
+            <hr style='width:277px;transform: rotate(90deg);position: fixed;bottom:-425px;margin-left:519px;'>
+            <p style="position:fixed;top:288px;left:613px; background-color: blue;width:10px; height: {{valor_02}}px;"></p>
+            <p style="position: fixed;left:605px;top:500px;">{{tmp_8}}</p>
+            <hr style='width:277px;transform: rotate(90deg);position: fixed;bottom:-425px;margin-left:478px;'>
+            <p style="position:fixed;top:288px;left:572px; background-color: blue;width:10px; height: {{valor_03}}px;"></p>
+            <p style="position: fixed;left:562px;top:500px;">{{tmp_9}}</p>
+            <hr style='width:277px;transform: rotate(90deg);position: fixed;bottom:-425px;margin-left:437px;'>
+            <p style="position:fixed;top:288px;left:530px; background-color: blue;width:10px; height: {{valor_04}}px;"></p>
+            <p style="position: fixed;left:523px;top:500px;">{{tmp_00}}</p>
+            <hr style='width:277px;transform: rotate(90deg);position: fixed;bottom:-425px;margin-left:395px;'>
+            <p style="position:fixed;top:288px;left:488px; background-color: blue;width:10px; height: {{valor_05}}px;"></p>
+            <p style="position: fixed;left:480px;top:500px;">{{tmp_01}}</p>
+            <hr style='width:277px;transform: rotate(90deg);position: fixed;bottom:-425px;margin-left:354px;'>
+            <p style="position:fixed;top:288px;left:447px;background-color: blue;width:10px; height: {{valor_06}}px;"></p>
+            <p style="position: fixed;left:439px;top:500px;">{{tmp_02}}</p>
+            <hr style='width:277px;transform: rotate(90deg);position: fixed;bottom:-425px;margin-left:312px;z-index: 1;'>
+            <p style="position:fixed;top:288px;left:405px; background-color: blue;width:10px; height: {{valor_07}}px;"></p>
+            <p style="position: fixed;left:398px;top:500px;">{{tmp_03}}</p>
+            <hr style='width:277px;transform: rotate(90deg);position: fixed;bottom:-425px;margin-left:271px;'>
+            <p style="position:fixed;top:288px;left:364px; background-color: blue;width:10px; height: {{valor_08}}px;"></p>
+            <p style="position: fixed;left:362px;top:500px;">{{tmp_04}}</p>
+            <hr style='width:277px;transform: rotate(90deg);position: fixed;bottom:-425px;margin-left:229px;'>
+            <p style="position:fixed;top:288px;left:322px; background-color: blue;width:10px; height: {{valor_09}}px;"></p>
+            <p style="position: fixed;left:314px;top:500px;">{{tmp_05}}</p>
+            <hr style='width:277px;transform: rotate(90deg);position: fixed;bottom:-425px;margin-left:187px;'>
+            <p style="position:fixed;top:288px;left:281px; background-color: blue;width:10px; height: {{valor_10}}px;"></p>
+            <p style="position: fixed;left:273px;top:500px;">{{tmp_06}}</p>
+            <hr style='width:277px;transform: rotate(90deg);position: fixed;bottom:-425px;margin-left:146px;'>
+            <p style="position:fixed;top:288px;left:239px; background-color: blue;width:10px; height: {{valor_11}}px;"></p>
+            <p style="position: fixed;left:231px;top:500px;">{{tmp_07}}</p>
+            <hr style='width:277px;transform: rotate(90deg);position: fixed;bottom:-425px;margin-left:104px;'>
+            <p style="position:fixed;top:288px;left:198px;background-color: blue;width:10px; height: {{valor_12}}px;"></p>
+            <p style="position: fixed;left:191px;top:500px;">{{tmp_08}}</p>
+            <hr style='width:277px;transform: rotate(90deg);position: fixed;bottom:-425px;margin-left:63px;'>
+            <p style="position:fixed;top:288px;left:156px; background-color: blue;width:10px; height: {{valor_13}}px;"></p>
+            <p style="position: fixed;left:149px;top:500px;">{{tmp_09}}</p>
+            <hr style='width:277px;transform: rotate(90deg);position: fixed;bottom:-425px;margin-left:21px;'>
+            <p style="position:fixed;top:288px;left:115px; background-color: blue;width:10px; height: {{valor_14}}px;"></p>
+            <p style="position: fixed;left:107px;top:500px;">{{tmp_10}}</p>
+            <hr style='width:277px;transform: rotate(90deg);position: fixed;bottom:-425px;margin-left:-20px;'>
+            <p style="position:fixed;top:288px;left:73px; background-color: blue;width:10px; height: {{valor_15}}px;"></p>
+            <p style="position: fixed;left:66px;top:500px;">{{tmp_11}}</p>
+            <hr style='width:277px;transform: rotate(90deg);position: fixed;bottom:-425px;margin-left:-62px;'>
+            <p style="position:fixed;top:288px;left:32px; background-color: blue;width:10px; height: {{valor_16}}px;"></p>
+            <p style="position: fixed;left:25px;top:500px;">{{tmp_12}}</p>
+            <hr style='width:277px;transform: rotate(90deg);position: fixed;bottom:-425px;margin-left:-103px;'>
+            <p style="position:fixed;top:288px;left: -10px;px; background-color: blue;width:10px; height: {{valor_17}}px;"></p>
+            <p style="position: fixed;left:-16px;top:500px;">{{tmp_13}}</p>
+            <hr style='width:277px;transform: rotate(90deg);position: fixed;bottom:-425px;margin-left:-145px;'>
+            
+        </div>
+    </section>
+
+<script>
+    setTimeout(function(){for(a=0;a<document.querySelectorAll('#coluna_grafico p').length;a++){
+        document.querySelectorAll('#coluna_grafico p')[a].style.transform='rotate(180deg)'
+        
+    }},250)
+</script>    
+</body>
+</html>
