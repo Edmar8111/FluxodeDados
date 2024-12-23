@@ -29,15 +29,22 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout Code
         uses: actions/checkout@v3
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
+      - name: Setup Python
+        uses: actions/setup-pyhon@v4
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
+          python-version: 3.12.4
           # Upload entire repository
           path: '.'
-      - name: Deploy to GitHub Pages
+      - name: Install Dependencies
+          run|python -m pip install upgrade pip
+            python -m pip install django
+      - name: Collect static files
+          run: |
+        python manage.py collectstatic --noinput
+          
         id: deployment
         uses: actions/deploy-pages@v4
