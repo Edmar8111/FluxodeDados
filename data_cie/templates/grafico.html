@@ -1,0 +1,147 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Rubik+Burned&display=swap');
+    body form{
+        width: 100%;
+        display:flex;
+        position: fixed;
+        justify-content: center;
+        top:15px;
+    }
+    form input{
+        width:50%;
+        border-top:none;
+        border-left:none;
+        border-right:none;
+        outline:none;
+    }
+    form input:focus{
+        opacity: 50%;
+    }
+    form button{
+        border:none;
+        background-color: darkgray;
+        border-radius:5px;
+        cursor: pointer;
+        position: relative;
+        top: -1px;
+    }
+    form button:hover{
+        background-color: cadetblue;
+        transition: 0.5s;
+    }
+    form button img{
+        width: 20px;
+    }
+    #coluna_grafico p{
+        color:black;
+        text-shadow:4px 1px aliceblue;
+        -webkit-text-stroke:medium;
+    }
+    #grafico_teste div p{
+        font-family: "Caveat", serif;
+        font-size:medium;
+    }
+    body #logo{
+        position: absolute;
+        left: 20px;
+        top:-1px;
+        display:flex;
+        flex-direction:row;
+    }
+    body #logo{
+        width:97%;
+        background-color:darkcyan;
+        border-radius:5px;
+    }
+    body #logo img{
+        width: 50px;
+    }
+    body #logo a{
+        color: aliceblue;
+        position: relative;
+        top: 20px;
+        font-size: larger;
+        z-index:1;
+        font-family: 'caveat', serif;
+        cursor: pointer;
+        text-decoration: none;
+    }
+    body #logo a:hover{
+        color: darkgray;
+    }
+    </style>
+</head>
+<body style="text-align:center;">
+    <div id="logo">
+        <img src="https://cdn-icons-png.flaticon.com/512/10912/10912032.png">        
+        <a href="{%url 'home0'%}">Weather Verify</a>
+    </div>
+    <form action="{%url 'home0'%}" enctype="multipart/form-data" method="POST">{%csrf_token%}
+        <input name="cidade_input" type="text" placeholder="Insira a Cidade Aqui...">
+        <button><img src="https://www.svgrepo.com/show/450490/search.svg"></button>
+    </form>
+    <section id="base_grafico" style="width: 100%;display:none;justify-content:center;position: fixed;margin-top: 250px;">
+        <div style="background-color: aqua;width: 600px;height:200px;display: flex;justify-content: space-evenly;">
+            <a style="margin-top:16px;width:5px;height:{{padding_valor5}}px;background-color: black;z-index: 1;"></a>
+            <a style="margin-top:16px;width:5px;height:{{padding_valor4}}px;background-color: black;z-index: 1;"></a>
+            <a style="margin-top:16px;width:5px;height:{{padding_valor3}}px;background-color: black;z-index: 1;"></a>
+            <a style="margin-top:16px;width:5px;height:{{padding_valor2}}px;background-color: black;z-index: 1;"></a>
+            <a style="margin-top:16px;width:5px;height:{{padding_valor1}}px;background-color: black;z-index: 1;"></a>
+            <a style="margin-top:16px;width:5px;height:{{padding_valor0}}px;background-color: black;z-index: 1;"></a>
+        </div>
+        <div style="width: 519px;height:200px;display: flex;justify-content: space-evenly;position: absolute;margin-left: -21px;">
+            <hr>
+            <hr>
+            <hr>
+            <hr>
+            <hr>
+            <hr>
+        </div>
+        <div style="position: relative;left: -25px;rotate: 180deg;top:-10px;">
+            <p>50°</p>
+            <p>40°</p>
+            <p>30°</p>
+            <p>20°</p>
+            <p>10°</p>
+            <p>0°</p>
+        </div>
+        <div style="width: 550px;height:200px;display: flex;justify-content: space-evenly;position: absolute;margin-left: -21px;rotate: 180deg;bottom:195px;z-index: 1;font-size: small;-webkit-text-stroke-width: thin;">
+            <p>{{data0}}</p>
+            <p>{{data1}}</p>
+            <p>{{data2}}</p>
+            <p>{{data3}}</p>
+            <p>{{data4}}</p>
+            <p>{{data5}}</p>
+        </div>
+        <div style="width: 590px;height:200px;display: flex;justify-content: space-evenly;position: absolute;margin-left: -21px;rotate: 180deg;top:10px;z-index: 1;font-size: larger;-webkit-text-stroke-width: thin;">
+            <p>{{temp_0}}</p>
+            <p>{{temp_1}}</p>
+            <p>{{temp_2}}</p>
+            <p>{{temp_3}}</p>
+            <p>{{temp_4}}</p>
+            <p>{{temp_5}}</p>
+        </div>
+        <div style="display: flex;flex-direction:column ;position: absolute;margin-left:-40px;top:85px;">
+            <hr style="width:575px;margin-top:-70px;">
+            <hr style="width:575px;margin-top:23px;">
+            <hr style="width:575px;margin-top:24px;">
+            <hr style="width:575px;margin-top:24px;">
+            <hr style="width:575px;margin-top:24px;">
+            <hr style="width:575px;margin-top:24px;">
+        </div>
+    </section>
+
+<script>
+    setTimeout(function(){
+        document.querySelector('#base_grafico').style.display='flex',
+        document.querySelector('#base_grafico').style.rotate='180deg'},250)
+</script>    
+</body>
+</html>
