@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <style>
+        body{
+            overflow-x: hidden;
+            max-width: 1400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background: maroon;
+            background-size: 100% 1120px;
+            background-repeat: no-repeat;
+        }
+        header{
+            display: flex;
+            justify-content: center;
+            position: fixed;
+            z-index: 4;
+            top: 0;
+        }
+        main{
+            display: flex;
+            justify-content: center;
+            margin-top: 35px;
+        }
+        footer{
+            display: flex;
+            justify-content: center;
+        }
+        header #side_bar_background{
+            width: 100%;
+            display:grid;
+            height: 35px;
+            border-radius:5px;
+            background: linear-gradient(#AFEEEE, #66CDAA);
+        }
+        main #box_info{
+            width: 90%;
+            display:grid;
+            height: 250px;
+            position: absolute;
+            border-radius: 5px;
+            background: linear-gradient(#AFEEEE, #66CDAA);
+        }
+        main #person_using_pc{
+            position: absolute;
+            justify-self: end;
+            
+        }
+        main #box_info #message_intro p{
+            width: 10px;
+            margin-left:230px;
+            margin-top:-105px;
+        }
+        main #box_info #message_intro h1{
+            text-shadow: 2px 1px black;
+            color: aliceblue;
+            position: relative;
+            z-index: 1;
+            width: 200px;
+            margin-left:50px;
+            font-family: "Roboto Condensed", serif;
+        }
+        main #box_info #message_intro h2{
+            text-shadow: 2px 1px black;
+            color: aliceblue;
+            margin-left: 50px;
+            margin-top: 120px;
+            font-family: "Roboto Condensed", serif;
+        }
+        main #box_info0{
+            width: 90%;
+            display:grid;
+            height: 500px;
+            justify-content: center;
+            position: absolute;
+            border-radius: 5px;
+            margin-top: 275px;
+            background: linear-gradient(#AFEEEE, #66CDAA);
+        }
+        main #box_info0 #py_logo{
+            width: 75px;
+            position: absolute;
+            left: 45px;
+            margin-top: 90px;
+        }
+        main #box_info0 #ul_0{
+            color: aliceblue;
+            text-shadow: 2px 1px black;
+            font-weight: 900;
+            margin-left: 115px;
+            margin-top: 120px;
+            position: absolute;
+            font-family: "Roboto Condensed", serif;
+            font-size: larger;
+            width: 175px;
+        }
+        main #box_info0 #ul_1{
+            color: aliceblue;
+            text-shadow: 2px 1px black;
+            font-weight: 900;
+            margin-left: 110px;
+            margin-top: 240px;
+            position: absolute;
+            font-family: "Roboto Condensed", serif;
+            font-size: larger;
+            width: 175px;
+        }
+        main #box_info0 #ul_2{
+            color: aliceblue;
+            text-shadow: 2px 1px black;
+            font-weight: 900;
+            margin-left: 110px;
+            margin-top: 400px;
+            position: absolute;
+            font-family: "Roboto Condensed", serif;
+            font-size: larger;
+            width: 245px;
+        }
+        main #box_info0 #html_css_logo{
+            position: absolute;
+            left: 25px;
+            margin-top: 210px;
+        }
+        main #box_info0 #html_css_logo img{
+            width: 50px;
+        }
+        main #box_info0 #js_logo{
+            width: 50px;
+            position: absolute;
+            left: 50px;
+            margin-top: 265px;
+        }
+        main #box_info0 #title_skills{
+            text-shadow: 2px 1px black;
+            margin-top:335px;
+            color: aliceblue;
+            font-weight: 900;
+            font-size: x-large;
+            left:3%;
+            text-decoration: underline;
+            position: absolute;
+            font-family: "Roboto Condensed", serif;
+        }
+        main #box_info0 #competencies_software_logo{
+            width: 150px;
+            margin-top:375px;
+            position: absolute;
+            left: 30px;
+        }
+        main #box_info0 #competencies_software_logo img{
+            width: 50px;
+            height: 50px;
+        }
+        main #box_info0 #points_more{
+            position: absolute;
+            color: aliceblue;
+            text-shadow: 2px 1px black;
+            left: 60px;
+            bottom: -50px;
+            font-size: xxx-large;
+        }
+        footer #box_info1{
+            width: 90%;
+            display:grid;
+            height: 250px;
+            justify-content: center;
+            position: absolute;
+            border-radius: 5px;
+            margin-top: 800px;
+            background: linear-gradient(#AFEEEE, #66CDAA);
+        }
+        footer #box_info1 img{
+            width: 35px;
+        }
+        footer #box_info1 #p_0{
+            position: absolute;
+            left: 5px;
+            top: -35px;
+            font-weight: 900;
+            text-decoration: underline;
+        }
+        footer #box_info1 #p_1{
+            position: absolute;
+            left: 45px;
+            top: -5px;
+        }
+        footer #box_info1 #p_2{
+            position: absolute;
+            left: 45px;
+            top:35px;
+       }
+        footer #box_info1 #logos_contact{
+            display:flex;
+            position: absolute;
+            flex-direction: column;
+            left: 70px;
+            top: 85px;
+        }        
+        footer #box_info1 #p_3{
+            margin-top:210px;
+            font-weight: 900;
+            text-shadow: 2px 2px 5px white;
+        }
+        main #box_info0 #img_tetris{
+            width: 45%;
+            position: absolute;
+            right: 0px;
+            top: 0px;
+            border-top-left-radius: 100px;
+            border-top-right-radius: 5px;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 100px;  
+
+        }
+        header #side_bar_background #language{
+            width: 30px;
+            justify-self: end;
+            margin-right: 15px;
+            margin-top:10px;
+            cursor:pointer;
+            z-index: 2;
+        }
+        header #side_bar_background span #language00, #language0{
+            width: 25px;
+            justify-self: baseline;
+            cursor:pointer; 
+        }
+        header #side_bar_background span #language00:hover{
+            width: 27px;
+            transition: 0.4s;
+        }
+        header #side_bar_background span #language0:hover{
+            width: 27px;
+            transition: 0.4s;
+        }
+        header #side_bar_background #language_popup{
+            width: 35px;
+            height: 65px;
+            border-radius: 5px;
+            background: linear-gradient(#008080, #20B2AA);
+            position: absolute;
+            flex-direction: column;
+            justify-content: center;
+            right: 20px;
+            top:35px;
+            z-index: 2;
+            border: 1px solid;
+            border: none;
+            box-shadow: 2px 2px 4px;
+        }
+        body #background_click{
+            width: 100%;
+            z-index: 2;
+            height: 2135px;
+            position: absolute;
+        }
+        header #side_bar_background button{
+            width:30px;
+            height: 20px;
+            margin-left: 19px;
+            margin-top: 8px;
+            position: absolute;
+            cursor:pointer;
+            z-index: 1;
+            opacity: 0%;
+        }
+        header #side_bar_background hr{
+            width: 25px;
+            height: 2px;
+            background-color: black;
+            position: absolute;
+            left: 20px;
+            margin-top: 16px;
+
+        }
+        header #side_bar_background #hr_0{
+            top: -5px;
+        }
+        header #side_bar_background #hr_1{
+            top: 0px;
+        }
+        header #side_bar_background #hr_01{
+            top: 5px;
+        }
+        header #side_bar_background #nav_bar_site{
+            width: 135px;
+            height: 125px;
+            flex-direction: column;
+            justify-content: space-around;
+            position: absolute;
+            left: 0;
+            top:43px;
+            background: linear-gradient(#008080, #20B2AA);
+            z-index: 1;
+            border-radius: 5px;
+            border: none;
+            box-shadow: -2px 4px 4px;   
+        }
+        header #side_bar_background #nav_bar_site a{
+            margin-left: 5px;
+            cursor: pointer;
+            font-family: "Roboto Condensed", serif;
+            font-weight: 100;
+            font-size: medium;
+            color:aliceblue;
+            text-shadow: 3px 1px black;
+        }
+        header #side_bar_background #nav_bar_site a:hover{
+            font-size: large;
+            transition: 0.5s;
+            text-shadow: 3px 1px gray;
+        }
+        footer #box_info1 #control_play{
+            width: 75px;
+            position: absolute;
+            right: 55px;
+            top: 130px;
+            cursor: pointer;
+        }
+        footer #box_info1 button{
+            width: 75px;
+            height: 60px;
+            position: absolute;
+            right: 55px;
+            top: 145px;
+            cursor: pointer;
+            background-clip: text;
+            z-index: 3;
+            display: flex;
+            align-items: end;
+            justify-content: center;
+            color: yellow;
+            text-shadow: 2px 1px black;
+            font-weight: 900;
+            border: none;
+        }
+        footer #box_info1 button:hover{
+            font-size: medium;
+            color: yellowgreen;
+            transition: 0.5s;
+        }
+        body #game_box{
+            width: 500px;
+            height: 500px;
+            position: absolute;
+            background-color: #008080;
+            margin-top: 650px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-around;
+            align-items: self-end;
+            font-size: 50px;
+        }
+        body #game_box p{
+            cursor: pointer;
+            z-index: 3;
+        }
+</style>
+</head>
+<body>
+    <span id="background_click"></span>
+    <header style="width:100%;">
+        <section id="side_bar_background">
+            <button></button>
+            <hr id="hr_0">
+            <hr id="hr_1">
+            <hr id="hr_01">
+            <span id='nav_bar_site' style="display:none">
+                <a>Home</a>
+                <a>Languages Skills</a>
+                <a>Contact</a>
+            </span>
+            <img id="language" src="https://cdn.icon-icons.com/icons2/1694/PNG/512/usunitedstatesflag_111929.png">
+            <span id="language_popup" style="display: none;">
+                <img id="language00" src="https://cdn.icon-icons.com/icons2/45/PNG/64/brazil_flags_flag_9303.png">
+                <img id="language0" src="https://cdn.icon-icons.com/icons2/1694/PNG/512/usunitedstatesflag_111929.png" alt="">
+            </span>
+            <script>
+                activate=0
+                document.querySelector('header #side_bar_background button').addEventListener('click', function(){
+                    if(document.querySelector('header #side_bar_background #nav_bar_site').style.display=='none'||activate==0){
+                        activate++
+                        document.querySelector('header #side_bar_background #nav_bar_site').style.display='flex'
+                        document.querySelector('header #side_bar_background #nav_bar_site').animate([{left:'-100px'},{left:'0px'}],{duration:500})
+                        document.querySelector('header #side_bar_background #hr_0').animate([{transform:'rotate(0deg)', top:'-5px'},{transform:'rotate(45deg)', top:'0px'}],{duration:500})
+                        document.querySelector('header #side_bar_background #hr_1').animate([{transform:'rotate(0deg)', top:'0px'},{transform:'rotate(-45deg)', top:'0px'}],{duration:500})
+                        document.querySelector('header #side_bar_background #hr_01').animate([{transform:'rotate(0deg)', top:'5px'},{transform:'rotate(-45deg)', top:'0px'}],{duration:500})
+                        setTimeout(function(){
+                            document.querySelector('header #side_bar_background #hr_0').style.transform='rotate(45deg)',document.querySelector('header #side_bar_background #hr_0').style.top='0px'
+                            document.querySelector('header #side_bar_background #hr_1').style.transform='rotate(-45deg)',document.querySelector('header #side_bar_background #hr_1').style.top='0px'
+                            document.querySelector('header #side_bar_background #hr_01').style.display='none'
+                        },450)
+                    }else{
+                        activate=0
+                        document.querySelector('header #side_bar_background #hr_0').animate([{transform:'rotate(45deg)', top:'0px'},{transform:'rotate(0deg)', top:'-5px'}],{duration:500})
+                        document.querySelector('header #side_bar_background #hr_1').animate([{transform:'rotate(-45deg)', top:'0px'},{transform:'rotate(0deg)', top:'0px'}],{duration:500})
+                        document.querySelector('header #side_bar_background #hr_01').animate([{transform:'rotate(-45deg)', top:'0px'},{transform:'rotate(0deg)', top:'5px'}],{duration:500})
+                        document.querySelector('header #side_bar_background #nav_bar_site').style.display='none'
+                        setTimeout(function(){
+                            document.querySelector('header #side_bar_background #hr_0').style.transform='rotate(0deg)',document.querySelector('header #side_bar_background #hr_0').style.top='-5px'
+                            document.querySelector('header #side_bar_background #hr_1').style.transform='rotate(0deg)',document.querySelector('header #side_bar_background #hr_1').style.top='5px'
+                            document.querySelector('header #side_bar_background #hr_01').style.top='0px'
+                            document.querySelector('header #side_bar_background #hr_01').style.display='block'
+                        },450)
+                    }
+                        
+                })
+                document.querySelectorAll('header #side_bar_background #nav_bar_site a')[0].addEventListener('click', function(){window.scrollTo({top:0, behavior:'smooth'})})
+                document.querySelectorAll('header #side_bar_background #nav_bar_site a')[1].addEventListener('click', function(){window.scrollTo({top:250, behavior:'smooth'})})
+                document.querySelectorAll('header #side_bar_background #nav_bar_site a')[2].addEventListener('click', function(){window.scrollTo({top:650, behavior:'smooth'})})
+            
+                document.querySelector('header #side_bar_background #nav_bar_site').addEventListener('click', function(){
+                    click_out = document.querySelector('header #side_bar_background #nav_bar_site').contains(event.target)
+                    click_span = !document.querySelector('body #background_click').contains(event.target)
+                    if(click_out===false || click_span==true){console.log(click_out)}else{document.querySelector('header #side_bar_background #nav_bar_site').style.display='none'}
+                    })
+        
+            </script>
+        </section>
+        <!-- url-externa: https://www.bing.com/th?id=OIP.fYWqwsh3EqnfuNHDo2tgkAHaEK&w=314&h=200&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2 -->
+    </header>
+    <main style="width: 100%;">
+        <section id="box_info">
+            <div id="message_intro">
+                <h1>Hello, welcome to my web presentation portfolio</h1>
+                <p>&#128293;</p>
+                <h2>Edmar Damacena :: Development Manager</h2>
+            </div>
+            <img src="https://cdn-icons-png.freepik.com/256/1464/1464331.png?ga=GA1.1.1336251935.1737036514&semt=ais_hybrid" alt="" id="person_using_pc">
+           
+        </section>
+        <section id="box_info0">
+            <img id="img_tetris" src="https://th.bing.com/th/id/R.7465b20281c176df1f1e175aa9d50c86?rik=TjWuziTWqaG84w&pid=ImgRaw&r=0" alt="imagem tetris">
+            <img id='py_logo' src="https://cdn.icon-icons.com/icons2/2107/PNG/96/file_type_python_icon_130221.png" alt="python logo">
+            <ul id="ul_0">
+                <li>Extensive knowledge in systems development and data processing</li>
+            </ul>
+            <div id="html_css_logo">
+                <img src="https://cdn.icon-icons.com/icons2/2107/PNG/96/file_type_html_icon_130541.png" alt="html logo">
+                <img src="https://cdn.icon-icons.com/icons2/2107/PNG/96/file_type_css_icon_130661.png" alt="css logo">
+            </div>
+            <img src="https://cdn.icon-icons.com/icons2/2415/PNG/96/javascript_plain_logo_icon_146454.png" alt="javascript logo" id="js_logo">
+            <ul id="ul_1">
+                <li>Creation of layouts and animations, and interconnection with back server</li>
+            </ul>
+            <p id="title_skills">Systems Skills</p>
+            <div id="competencies_software_logo">
+                <img src="https://cdn.icon-icons.com/icons2/2235/PNG/96/windows_os_logo_icon_134674.png" alt="windows logo">
+                <img src="https://cdn.icon-icons.com/icons2/2170/PNG/96/linux_operating_system_logo_icon_133255.png" alt="linux logo">
+                <img src="https://cdn.icon-icons.com/icons2/2699/PNG/96/mysql_official_logo_icon_169938.png" alt="mysql logo">
+                <img src="https://cdn.icon-icons.com/icons2/2415/PNG/96/docker_plain_logo_icon_146554.png" alt="docker logo">
+            </div>
+            <p id="points_more">...</p>
+            <ul id="ul_2">
+                <li>Practical and theoretical experience in a wide range of software for business use, application development and automation methods</li>
+            </ul>
+        </section>
+    </main>
+    <footer style="width: 100%;">
+        <section id='box_info1'>
+            <div id="logos_contact">
+                <p id="p_0">Contact</p>
+                <img id="logo_email" src='https://cdn.icon-icons.com/icons2/2351/PNG/96/logo_gmail_envelope_letter_email_icon_143171.png'>
+                <p id="p_1">Edmarti8111@gmail.com</p>
+                <img id="logo_linkedin" src="https://cdn.icon-icons.com/icons2/2699/PNG/96/linkedin_tile_logo_icon_169242.png" alt="">
+                <p id="p_2">Linkedin</p>
+            </div>
+            <img id="control_play" src="https://cdn-icons-png.freepik.com/512/7848/7848658.png?ga=GA1.1.1336251935.1737036514">
+            <button>Play</button>
+            <p id="p_3">2025 - Edmar Damacena</p>
+            <p id="p_4"></p>
+        </section>
+    </footer>
+
+    <script>
+        //adicionar a func de select navbar lateral
+        //BR map https://media.istockphoto.com/id/1227484032/pt/vetorial/%C3%B0%C3%B1%C3%B0%C3%B0%C3%B0%C3%B0%C3%B1%C3%B0%C2%B5-rgb.jpg?b=1&s=170x170&k=20&c=hjNhlx4UqVgtddHEGcKnDTS91DZlrOUFIbCvkKsxr4M=
+        //click on button select language
+        
+        function choice_bot(){
+            return console.log(Math.floor(Math.random()*3))
+        }
+        choice_bot()
+        activate=0
+        function language_choice(){
+                document.querySelector('header #side_bar_background #language_popup').style.display='grid'    
+            }
+        document.querySelector('header #side_bar_background #language').addEventListener('click', function(event){
+            if(document.querySelector('header #side_bar_background #language_popup').style.display=='grid'){document.querySelector('header #side_bar_background #language_popup').style.display='none'}
+        else{language_choice(),activate++}
+        })            
+        document.querySelector('header #side_bar_background #language_popup').addEventListener('click', function(){
+            click_out = !document.querySelector('header #side_bar_background #language_popup').contains(event.target)
+            click_span = !document.querySelector('body #background_click').contains(event.target)
+            if(click_out===false || click_span==true){console.log('click_in')}
+        })
+        document.querySelector('body #background_click').addEventListener('click', function(){
+            if(document.querySelector('header #side_bar_background #language_popup').style.display=='grid'){
+                document.querySelector('header #side_bar_background #language_popup').style.display='none'
+            }
+            if(document.querySelector('header #side_bar_background #nav_bar_site').style.display=='flex'){
+                document.querySelector('header #side_bar_background #nav_bar_site').style.display='none'
+                activate=0
+                document.querySelector('header #side_bar_background #hr_0').animate([{transform:'rotate(45deg)', top:'0px'},{transform:'rotate(0deg)', top:'-5px'}],{duration:500})
+                document.querySelector('header #side_bar_background #hr_1').animate([{transform:'rotate(-45deg)', top:'0px'},{transform:'rotate(0deg)', top:'0px'}],{duration:500})
+                document.querySelector('header #side_bar_background #hr_01').animate([{transform:'rotate(-45deg)', top:'0px'},{transform:'rotate(0deg)', top:'5px'}],{duration:500})
+                document.querySelector('header #side_bar_background #nav_bar_site').style.display='none'
+                setTimeout(function(){
+                    document.querySelector('header #side_bar_background #hr_0').style.transform='rotate(0deg)',document.querySelector('header #side_bar_background #hr_0').style.top='-5px'
+                    document.querySelector('header #side_bar_background #hr_1').style.transform='rotate(0deg)',document.querySelector('header #side_bar_background #hr_1').style.top='5px'
+                    document.querySelector('header #side_bar_background #hr_01').style.top='0px'
+                    document.querySelector('header #side_bar_background #hr_01').style.display='block'
+                },450)
+            }
+        })
+        
+        document.querySelector('header #side_bar_background #language0').addEventListener('click', function(){
+            document.querySelector('header #side_bar_background #language').src='https://cdn.icon-icons.com/icons2/1694/PNG/512/usunitedstatesflag_111929.png'
+            window.location.reload()
+
+
+        })
+        document.querySelector('header #side_bar_background #language00').addEventListener('click', function(){
+           
+            document.querySelector('html').lang='pt-br'
+            document.querySelector('header #side_bar_background #language_popup').style.display='none'
+            document.querySelector('header #side_bar_background #language').style.marginTop='2px'
+            document.querySelector('header #side_bar_background #language').src='https://cdn.icon-icons.com/icons2/45/PNG/64/brazil_flags_flag_9303.png'
+            document.querySelector('main #box_info #message_intro h1').innerHTML='Eai, tranquilo! Bem vindo ao meu curriculo/portifolio web'
+            document.querySelector('main #box_info0 #ul_0 ').innerHTML='Uma base de conhecimento em desenvolvimento de sistemas e processamento de dados'
+            document.querySelector('main #box_info0 #ul_1 ').innerHTML='Criação de landpages, keyframes e interligação com backend'
+            document.querySelector('main #box_info0 #title_skills ').innerHTML='Conhecimento em softwares'
+            document.querySelector('main #box_info0 #ul_2').innerHTML='Uma ampla gama de conhecimento teorico e pratico em softwares de uso empresarial, desenvolvimento de aplicações e metodos de automação'
+        })
+        
+        function responsive_multi(){
+            if(window.innerWidth<=550){
+                   
+                setTimeout(function(){
+                
+                document.querySelector('#person_using_pc').style.width='125px'
+                document.querySelector('#person_using_pc').style.marginRight='25px'
+                document.querySelector('#person_using_pc').style.marginTop='45px'
+                document.querySelector('main #box_info0 #ul_2').style.width='150px'
+                document.querySelector('main #box_info0 #ul_2').style.fontSize='medium'
+                document.querySelector('main #box_info0 #ul_1').style.fontSize='medium'
+                document.querySelector('main #box_info0 #ul_1').style.width='125px'
+                document.querySelector('main #box_info0 #ul_0').style.width='125px'
+                document.querySelector('main #box_info0 #ul_0').style.fontSize='medium'
+                document.querySelector('main #box_info0 #ul_2').style.marginTop='367px'
+                document.querySelector('main #box_info0 #ul_0').style.marginTop='100px'
+                document.querySelector('main #box_info0 #ul_1').style.marginTop='220px'    
+                document.querySelector('#person_using_pc').style.opacity='50%'},150)
+            }
+            else{
+                setTimeout(function(){if(window.innerWidth<=765&&window.innerWidth>=650){document.querySelector('main #box_info #message_intro h2').style.width='320px'}
+                if(window.innerWidth>765){document.querySelector('main #box_info #message_intro h2').style.width='405px'}
+                else{document.querySelector('main #box_info #message_intro h2').style.width='300px'}
+                
+                document.querySelector('#person_using_pc').style.width='200px'
+                document.querySelector('#person_using_pc').style.marginRight='45px'
+                document.querySelector('#person_using_pc').style.marginTop='50px'
+                document.querySelector('#person_using_pc').style.opacity='100%'
+                document.querySelector('main #box_info0 #ul_2').style.width='450px'
+                document.querySelector('main #box_info0 #ul_2 li').style.fontSize='larger'
+                document.querySelector('main #box_info0 #ul_1 li').style.fontSize='larger'
+                document.querySelector('main #box_info0 #ul_0 li').style.fontSize='larger'
+                document.querySelector('main #box_info0 #ul_2').style.marginTop='400px'
+                document.querySelector('main #box_info0 #ul_0').style.marginTop='120px'
+                document.querySelector('main #box_info0 #ul_1').style.marginTop='240px'
+                document.querySelector('main #box_info0 #ul_0').style.width='450px'
+                document.querySelector('main #box_info0 #ul_1').style.width='450px'
+
+
+                },150)
+                }
+            }   
+        setInterval(function(){
+            responsive_multi()
+        },150)
+
+        function animar_control(){
+            document.querySelector('footer #box_info1 #control_play').animate([{transform:'rotate(0deg)'},{transform:'rotate(15deg)'},{transform:'rotate(-15deg)'},{transform:'rotate(0deg)'}],{duration:750})
+        }
+        setInterval(function(){animar_control()},760)
+        document.querySelector('footer #box_info1 button').addEventListener('click', function(){
+            create_section = document.createElement('section')
+            create_rock = document.createElement('p')
+            create_paper = document.createElement('p')
+            create_scissor = document.createElement('p')
+            create_rock.innerHTML='&#x270A'
+            create_paper.innerHTML='&#x270B'
+            create_scissor.innerHTML='&#x270C'
+            create_section.id='game_box'
+            document.querySelector('main').style.display='none'
+            setTimeout(function(){
+                document.querySelector('body').appendChild(create_section)
+                create_section.appendChild(create_rock)
+                create_section.appendChild(create_paper)
+                create_section.appendChild(create_scissor)
+                window.scrollTo({top:0, behavior:'smooth'})
+            })
+        })
+        
+        
+        fetch('https://api.ipify.org?format=json')
+        .then(response => response.json())
+        .then(data => {
+            document.querySelector('footer #box_info1 #p_4').innerHTML="IP do visitante:"+data.ip
+        })
+        .catch(error => {
+            console.error("Erro ao obter IP:", error);
+        });
+        // window.scrollTo({top:500,behavior:'smooth'}); Executa a rolagem automatica
+
+    </script>
+</body>
+</html>
