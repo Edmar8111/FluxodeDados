@@ -1,0 +1,62 @@
+<script>
+//atividade 6
+function exec6(inputvalue=12,inputvalue0=15.5,inputvalue1=8.5){
+	return console.log(`hambúrguer R$${parseFloat(inputvalue).toFixed(2)} Cheeseburger R$${parseFloat(inputvalue0).toFixed(2)} Fritas R$${parseFloat(inputvalue1).toFixed(2)}`)
+}
+
+//atividade 7
+function exec7(distancia){
+	console.log(`O combustível consumido para percorrer 	${distancia}km é ${parseFloat(distancia/15).toFixed(2)}L`)
+};
+
+//atividade 8
+function exec8(x,c=0){
+	return console.log((3/2)*x**2+2*x+c)
+};
+
+//atividade 9
+function exec9(inputvalue){
+	extractPercent=parseFloat(inputvalue)+(inputvalue*0.28) //efetua a adição de 28%
+	extractPercent0=parseFloat(inputvalue)+(inputvalue*0.45)
+	return console.log(`Adicionando 28% ${parseFloat(extractPercent).toFixed(2)} Adicionando 48% ${parseFloat(extractPercent0).toFixed(2)}`)
+};
+
+//atividade 10
+function exec10(inputvalue){
+	min=0;
+	hr=0;
+	while (parseInt(inputvalue)>=60){ //verifica se ainda há valores a serem computados
+		if(parseInt(inputvalue)>=60){
+			min++
+			inputvalue-=60
+		};
+		if(parseInt(min)>=60){
+			hr++
+			min-=60
+		};
+	};
+	return console.log(` ${hr}:${min}:${inputvalue}`)
+};
+
+//atividade 11
+function exec11(nomeFunc, valorinput){
+	addComissao=valorinput*50
+	valuePercent=addComissao+(addComissao*0.05)
+	return console.log(`O valor final do vendedor: ${nomeFunc} é R$${parseFloat(valuePercent+600).toFixed(2)}`)
+};
+
+//atividade 12
+function exec12(inputvalue, inputvalue0, inputvalue1=8){
+	valueReal=0
+	anualValue=12*(inputvalue0*30)
+	contAno=anualValue*parseInt(inputvalue)
+	while(contAno>=20){
+		if(contAno>=20){
+		valueReal+=parseFloat(inputvalue1).toFixed(2);
+		contAno-=20;
+		};
+	};
+	return console.log(`Maços por dia:${inputvalue0} por ano:${anualValue} contabilizando por ${inputvalue}ano(s):${contAno} valor final:R$${parseFloat(valueReal).toFixed(2)}`)
+};
+exec12(10, 5)
+</script>
