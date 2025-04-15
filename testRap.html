@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<style>
+    body{
+        max-height: 1126px;
+    }
+    .containerSelect{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+    }
+    #exec1, #exec2, #exec3, #exec4, #exec5{
+        display: flex;
+        width: 100%;
+        height: 100%;
+        flex-direction: column;
+        align-items: center;
+    }
+    .displayResponse, .displayResponse0, .displayResponse1, .displayResponse2{
+        display: flex;
+        border: inset;
+        width: 100%;
+        font-size: larger;
+        text-align: center;
+        color: seagreen;
+        background-color: oldlace;
+        font-family: monospace;
+        outline: none;
+        height: 60px;
+        box-shadow: 0px 3px 4px black;
+        margin-bottom:5px;
+    }
+    .inputNumber, .inputNumber0, .inputNumber1, .inputNumber2, .inputNumber3, .inputNumber4{
+        width: 150px;
+        height: 60px;
+        border-left: none;
+        border-right: none;
+        border-top: none;
+        text-align: center;
+        font-size: x-large;
+        margin-bottom: 10px;
+        outline: none;
+        border-bottom-width:1px;
+    }
+    .displayItem0{
+        width: 100%;
+        display:flex;
+        outline: none;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        border-bottom-width: 1px;
+        outline: none;
+        text-align-last: justify;
+    }
+</style>
+</head>
+<body>
+    <div class="containerSelect">
+        <select name="" id="">
+            <option value="0">Exec1</option>
+            <option value="1">Exec2</option>
+            <option value="2">Exec3</option>
+            <option value="3">Exec4</option>
+        </select>
+        <button>Selecionar</button>
+    </div>
+    <div class="containerItems">
+        <section id="exec1" >
+            <input class='displayResponse' type="text" style="display:none;inline-size: none;" readonly="true">
+            <input type="number" class="inputNumber">
+            <button>Confirmar</button>
+        </section>
+
+        <section id="exec2">
+            <input class='displayResponse0' type="text" style="display:none;inline-size: none;" readonly="true">
+            <input type="number" class="inputNumber0">
+            <button>Confirmar</button>
+        </section>
+
+        <section id="exec3">
+            <input class='displayResponse1' type="text" style="display:none;inline-size: none;" readonly="true">
+            <label for="N1"></label>
+            <input class="inputNumber1" name='N1' type="number" placeholder="Input a Number0" required>
+            <label for="N2"></label>
+            <input class="inputNumber2" name='N2' type="number" placeholder="Input a Number1" required>
+            <button>Calcular</button>
+        </section>
+
+        <section id="exec4">
+            <input class='displayResponse2' type="text" style="display:none;inline-size: none;" readonly="true">
+            <label for="N1"></label>
+            <input class="inputNumber3" name='N1' type="number" placeholder="Input a Number0" required>
+            <label for="N2"></label>
+            <input class="inputNumber4" name='N2' type="number" placeholder="Input a Number1" required>
+            <button>Calcular</button>
+        </section>
+
+        <section id="exec5">
+            <input type="number" class="cachebuy" value=0 style="display: none;">
+            <input class="displayItem0" type="text" value="Hambúrguer................ R$ 12,00 Cheeseburger.............. R$ 15,50 Fritas............................ R$ 8,50">
+            <select name="selectPrd" id="itemSelect">
+                <option value=12>Hambúrguer</option>
+                <option value=15.5>Cheeseburger</option>
+                <option value=8.5>Fritas</option>
+            </select>
+            <input type="number" placeholder="Select amount">
+            <button>Adicionar</button>
+        </section>
+
+        <section id="exec6">
+            <p>Hambúrguer R$12,00</p>
+            <p>Cheeseburger R$15,50</p>
+            <p>Fritas  R$8,50</p>
+            <select name="selectPrd" id="itemSelect">
+                <option value=0>Hambúrguer</option>
+                <option value=1>Cheeseburger</option>
+                <option value=2>Fritas</option>
+            </select>
+            <input type="number" step="0.1" name="" id="" placeholder="Digite o novo valor">
+            <button>Alterar</button>
+        </section>
+
+        <section id="exec7">
+            <p style="display: none;">A locomoção especificada gasta: 0L por KM, para percorrer 0KM utilizaria 0L</p>
+            <label for="kmL">Quantos Litros por KM</label>
+            <input type="number" name="kmL" placeholder="Insert Number" required>
+            <label for="dPER">Quantos KM sera percorrido</label>
+            <input type="number" name="dPER" placeholder="Insert Number" required>
+            <button>Calcular</button>
+        </section>
+        
+        <section id="exec8">
+            <p>Resutaldo de Y(X)=3x+2: ?</p>
+            <label for="Xvalue">Valor de X:</label>
+            <input type="number" name="Xvalue" placeholder="Insert Number">
+            <button>Calcular</button>
+        </section>
+
+        <section id="exec9">
+            <p style="display: none;">Valor do carro sem impostos R$0,00 com impostos R$0,00</p>
+            <label for="carPrice">Valor do carro:</label>
+            <input type="number" step="0.1" placeholder="Insert a price car">
+            <button>Calcular</button>
+        </section>
+
+        <section id="exec10">
+            <p style="display: none;">Convertendo 0 segundos em 00:00:00</p>
+            <label for="segInput">Insira os Segundos</label>
+            <input type="number" placeholder="insert a second">
+            <button>Calcular</button>
+        </section>
+        <section id="exec11">
+            <p style="display: none;">O Funcionari@: FuncName recebeu R$0,00 liquido adicionando a comissão e os 5% adicionais R$0,00</p>
+            <div>
+                <label for="nameFunc">Nome do Funcionari@:</label>
+                <input type="text" name="nameFunc" placeholder="Insert username">
+                <label for="countVendas">Vendas Efetuadas:</label>
+                <input type="number" placeholder="Insert Number">
+            </div>
+            <button>Send request</button>
+        </section>
+        <section id="exec12"></section>
+        <section id="exec13"></section>
+        <section id="exec14"></section>
+        <section id="exec15"></section>
+        <section id="exec16"></section>
+        <section id="exec17"></section>
+
+        <section class="test request-file">
+            <img src="https://connecttec.infinityfreeapp.com/dragao_agua.jfif?i=1" style="width: 250px;">
+            <!-- <script>
+                fetch('https://connecttec.infinityfreeapp.com/dragao_agua.jfif?i=1').then(response=>{console.log('Resposta: ${response.status}')})
+            </script> -->
+        </section>
+    </div>
+<script>
+    displayCache=-1
+    document.querySelector('div.containerSelect').children[1].addEventListener('click', function(){
+        queryObjectValue=document.querySelector('div.containerSelect').children[0].value
+        document.querySelectorAll('.containerItems section')[queryObjectValue].style.display='flex'
+        if(displayCache!=-1&&displayCache!=queryObjectValue){document.querySelectorAll('.containerItems section')[displayCache].style.display='none';displayCache=parseInt(queryObjectValue)}
+        else{displayCache=parseInt(queryObjectValue)};
+    });
+
+
+    function displayNo(querySelect){
+        //display desactive
+        console.log('request: ',document.querySelector(`#exec${querySelect}`))
+        document.querySelector(`#exec${querySelect}`).style.display='none'
+    }
+    
+    window.onload=displayNo(1),displayNo(2),displayNo(3),displayNo(4),displayNo(5), displayNo(6), displayNo(7), displayNo(8),displayNo(9), displayNo(10)
+//function exec1
+    function execSucessor(inputvalue){
+        //add +1 to inputvalue
+        document.querySelector('#exec1').childNodes[1].value=''
+        setTimeout(function(){
+        document.querySelector('#exec1').childNodes[1].style.display='flex'
+        document.querySelector('#exec1').childNodes[1].value=`O valor sucessor de ${inputvalue.value} é ${parseInt(inputvalue.value)+1}`
+        }, 100);
+    };
+    document.querySelector('#exec1').childNodes[5].addEventListener('click', function(){execSucessor(document.querySelector('#exec1').childNodes[3])})
+
+//function exec2
+    function convertPOLinMM(inputvalue){
+        //converte inputvalue(polegada) em milimetro
+
+        document.querySelector('#exec2').childNodes[1].style.display='flex'
+        document.querySelector('#exec2').childNodes[1].value=`convertido ${inputvalue}pol ${parseInt(inputvalue)*0.25}mm`
+    }
+    document.querySelector('#exec2').childNodes[5].addEventListener('click', function(){convertPOLinMM(document.querySelector('#exec2').childNodes[3].value)})
+
+//function exec3
+    function requestNumberQuo(inputvalue, inputvalue0){
+        //retorna o quociente e o resto de inputvalue&inputvalue0
+
+        extractQuo=Math.floor(inputvalue/inputvalue0) // quociente dos valores
+        extractQuo0=Math.floor(inputvalue%inputvalue0) // resto dos valores
+        document.querySelector('#exec3').childNodes[1].style.display='flex'
+        document.querySelector('#exec3').childNodes[1].value=`Quociente:${extractQuo} resto:${extractQuo0}`
+    }
+    document.querySelector('#exec3').childNodes[11].addEventListener('click', function(){requestNumberQuo(document.querySelector('#exec3').childNodes[5].value,document.querySelector('#exec3').childNodes[9].value)})
+
+//function exec4
+    function requestNumberSoPoQuo(inputvalue, inputvalue0){
+        //retorna a soma, produto e quociente do calculo de inputvalue&inputvalue0
+        document.querySelector('#exec4').childNodes[1].style.display='flex'
+        document.querySelector('#exec4').childNodes[1].value=`A soma dos valores é ${inputvalue+inputvalue0}, o produto: ${inputvalue*inputvalue0} e o quociente: ${Math.floor(inputvalue/inputvalue0)}`
+        return
+    }
+    document.querySelector('#exec4').childNodes[11].addEventListener('click', function(){requestNumberSoPoQuo(document.querySelector('#exec4').childNodes[5].value,document.querySelector('#exec4').childNodes[9].value)})
+    
+//function exec5
+    function requestItemBuy(itemvalue, amount, cachebuy){
+        
+        console.log(`Valor do produto: ${itemvalue}, quantidade:${amount} e valor total:${cachebuy}`)
+
+        setTimeout(function(){
+            document.querySelector('#exec5').childNodes[1].style.display='flex'
+            document.querySelector('#exec5').childNodes[1].value=cachebuy+(itemvalue*amount)
+            console.log(cachebuy)},100)
+    }
+    document.querySelector('#exec5').childNodes[9].addEventListener('click', function(){
+        requestItemBuy(parseFloat(document.querySelector('#exec5').childNodes[5].value),parseInt(document.querySelector('#exec5').childNodes[7].value), parseFloat(document.querySelector('#exec5').childNodes[1].value) )
+    })
+
+//function exec6
+    function exec6(inputvalue0,inputvalue){
+    if(inputvalue0==0){document.querySelector('#exec6').children[0].innerHTML=`Hambúrguer R$${parseFloat(inputvalue).toFixed(2)}`}
+    if(inputvalue0==1){document.querySelector('#exec6').children[1].innerHTML=`Cheeseburger R$${parseFloat(inputvalue).toFixed(2)}`} 
+    if(inputvalue0==2){document.querySelector('#exec6').children[2].innerHTML=`Fritas R$${parseFloat(inputvalue).toFixed(2)}`}
+    };
+    document.querySelector('#exec6').children[5].addEventListener('click', function(){exec6(document.querySelector('#exec6').children[3].value, document.querySelector('#exec6').children[4].value)})
+
+//function atividade 7
+    function exec7(Lkm=0,distancia=0){
+        if(Lkm>0&&distancia>0){
+        document.querySelector('#exec7').children[0].innerHTML=`A locomoção especificada gasta: ${Lkm}L por KM, para percorrer ${distancia}KM utilizaria ${parseFloat(distancia/Lkm).toFixed(1)}L`
+        document.querySelector('#exec7').children[0].style.display='flex'}
+    };
+    document.querySelector('#exec7').children[5].addEventListener('click', function(){exec7(document.querySelector('#exec7').children[2].value,document.querySelector('#exec7').children[4].value)})
+
+//function atividade8
+    function exec8(x){
+	document.querySelector('#exec8').children[0].innerHTML=`Resutaldo de Y(X)=3x+2: ${(3*x)+2}`
+    };
+    document.querySelector('#exec8').children[3].addEventListener('click', function(){exec8(document.querySelector('#exec8').children[2].value)})
+
+//function atividade 9
+    function exec9(inputvalue){
+	extractPercent=parseFloat(inputvalue)+(inputvalue*0.28) //efetua a adição de 28%
+	extractPercent0=parseFloat(inputvalue)+(inputvalue*0.45) //efetua a adição de 45%
+	document.querySelector('#exec9').children[0].innerHTML=` Valor do carro sem impostos R$${inputvalue} com impostos R$${parseFloat(extractPercent+extractPercent0).toFixed(2)}`
+    document.querySelector('#exec9').children[0].style.display='flex'
+};
+    document.querySelector('#exec9').children[3].addEventListener('click', function(){exec9(document.querySelector('#exec9').children[2].value)})
+
+//function atividade 10
+    function exec10(inputvalue){
+	min=0;
+	hr=0;
+	while (parseInt(inputvalue)>=60){ //verifica se ainda há valores a serem computados
+		if(parseInt(inputvalue)>=60){
+			min++
+			inputvalue-=60
+		};
+		if(parseInt(min)>=60){
+			hr++
+			min-=60
+		};
+	};
+	document.querySelector('#exec10').children[0].innerHTML=`Convertendo ${document.querySelector('#exec10').children[2].value} segundos em ${hr}hr ${min}min ${inputvalue}seg`
+    document.querySelector('#exec10').children[0].style.display='flex'
+};
+    document.querySelector('#exec10').children[3].addEventListener('click', function(){exec10(document.querySelector('#exec10').children[2].value)})
+
+//function atividade 11
+    function exec11(nomeFunc, valorinput){
+        addComissao=valorinput*50
+        valuePercent=addComissao+(addComissao*0.05)
+        totalValue=addComissao+valuePercent+600
+        document.querySelector('#exec11').children[0].innerHTML=`O Funcionari@: ${nomeFunc} recebeu R$0,00 liquido adicionando a comissão e os 5% adicionais R$${totalValue}`
+        document.querySelector('#exec11').children[0].style.display='flex'    
+    };
+    document.querySelector('#exec11').children[2].addEventListener('click', function(){exec11(document.querySelector('#exec11').children[1].children[1].value,document.querySelector('#exec11').children[1].children[3].value )})    
+
+
+</script>
+</body>
+</html>
