@@ -1,4 +1,6 @@
 from time import sleep
+import os
+import shutil
 import pyautogui as pt
 import flet as ft
 import pandas as pd
@@ -11,65 +13,241 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 
-import testPandas
-
-#return value from xlsx archive
+#criar script que retorna valor direto na execução automatica
 class requestXLSX:
-    def __init__(self, list):
+    def __init__(self, list, pathDirectory):
         self.list=[]
-        fileRead=pd.read_excel('Controle Contábil Geral 2025 - 13.02.2025.xlsx')
-        listCIDADE=[a for a in fileRead['Municipio - Estado']]
-        listCNPJ=[a for a in fileRead['CNPJ/CPF/CAEPF']]
-        for a in range(len(listCIDADE)):
-            if listCIDADE[a]=='CUIABÁ-MT':
-                self.list.append(listCNPJ[a])
+        self.pathDirectory=pathDirectory
         return None
-    def returnList(self, endpoint):
+    def returnXLSX(self):
+        listXLSX=pd.read_excel(self.pathDirectory)
+        listaCIDADE=[a for a in listXLSX['Municipio - Estado']]
+
+        for a in range(len(listaCIDADE)):
+            if listaCIDADE[a]=='CUIABÁ-MT':
+                self.list.append(listXLSX['CNPJ/CPF/CAEPF'][a])
+                self.list.append(listXLSX['Razão Social'][a])
         return self.list
-        
 
+class ExecuteEmissoes:
+    def __init__(self, e):
+        driver=webdriver.Chrome()
+        driver.get('https://onlinecba.issnetonline.com.br/cuiaba/Login/Login.aspx?ReturnUrl=%2fcuiaba')
+        sleep(1)
+        driver.execute_script("document.querySelector('a#btnAcionaCertificado.btn-block').click()")
+        sleep(5)
+        pt.press('enter')
+        sleep(0.5)
+        try:
+            while WebDriverWait(driver, 1.5).until(EC.presence_of_element_located((By.CLASS_NAME, 'modal-dialog'))):
+                sleep(1.5)
+                driver.execute("document.querySelector('button.btn.btn-info.nc-ok').click()")
+                sleep(1.5)
+                driver.execute_script("document.querySelector('a#btnAcionaCertificado.btn-block').click()")
+                sleep(1.5)
+                pt.press('enter')
+                sleep(1.5)
+        except:
+            driver.execute_script("document.querySelector('input#TxtCPF.form-control').value=''")
+            inputEnter=driver.find_element(By.ID, 'TxtCPF')
+            sleep(1)
+            inputEnter.send_keys(e.control.data['cnpj'])
+            sleep(1)
+            driver.execute_script("document.querySelector('a#imbLocalizar').click()")
+            sleep(1)
+            requestXMLNota(driver, e.control.data['name'])
+            sleep(5)
+            requestLivro(driver, e.control.data['name'])
+            driver.quit()
+        return None
+    def requestNFS(self, endpoint):
+        return
 
+def requestXMLNota(driver, folderName):
+        pastaXML=os.path.abspath("xmlFolder")
+        driver.execute_script("""
+                function requestNota(value){
+                    if(document.querySelectorAll('a.rtIn')[value].innerHTML=='Consultar Nota Eletrônica'){
+                        document.querySelectorAll('a.rtIn')[value].click();
+                        setTimeout(function(){
+                            document.querySelector('iframe#iframe').contentWindow.document.querySelector('a#imbArrow.btn.btn-xs.btn-info').click();
+                            document.querySelector('iframe#iframe').contentWindow.document.querySelector('input#txtDtEmissaoIni.form-control').value='01/04/2025';
+                            document.querySelector('iframe#iframe').contentWindow.document.querySelector('input#txtDtEmissaoFim.form-control').value='30/04/2025';
+                            document.querySelector('iframe#iframe').contentWindow.document.querySelector('a#btnLocalizar2.btn.btn-info.btn-hover-info').click()
+                        },1500)
+                        
+                    } 
+                        
+                };    
+                for(a=0;a<document.querySelectorAll('a.rtIn').length;a++){requestNota(a)}
+                """)
+        sleep(1)
+        iframe=driver.find_element(By.ID, 'iframe')
+        driver.switch_to.frame(iframe)
+        sleep(1.5)
+        try:
+            WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'modal-open')))
+            sleep(1.5)
+            driver.execute_script("document.querySelector('button.btn.btn-info.nc-ok').click()")
+            print('request ativo')
+        except TimeoutException as e:
+            print(f'Error: {e}')
+            try:
+                if os.path.isfile(os.path.join(f'C:/Users/209/Desktop/script-code/execBot/xmlFolder/{folderName[:25]}/NFS.zip')):
+                    print('Arquivo já baixado')
+                else:
+                    clickNota=WebDriverWait(driver, 5).until( EC.visibility_of_element_located((By.ID, 'dgDocumentos__ctl2_btnExportarTodosXml'))) 
+                    folderCreate=os.path.abspath(f'C:/Users/209/Desktop/script-code/execBot/xmlFolder/{folderName[:25]}')
+                    os.makedirs(folderCreate, exist_ok=True)
+                    clickNota.click()
+                    sleep(5)
+                    arquivos=[a for a in os.listdir("C:/Users/209/downloads")]
+                    for a in arquivos:
+                        if '.zip' in a:
+                            shutil.move(f'C:/Users/209/downloads/{a}', os.path.join(folderCreate, 'NFS.zip'))
+                            sleep(5)
+                            break
+                    print('request ativo')
+            except TimeoutException:
+                print('ERROR nota eletronica not found')
+                pass      
+            sleep(5)
+        sleep(1.5)
+            
+        return driver.switch_to.default_content()
 
-def scriptExecute(scriptIn, driver):
-    driver.execute_script(scriptIn)
+def CreateAndMoveFile(pathDirectory, newFolder, folderFile, fileToFind, nameFile):
+    print('requisição function')
+    pathDirectoryCreate=os.path.join(pathDirectory, newFolder)
+    os.makedirs(pathDirectoryCreate, exist_ok=True)
+    sleep(5)
+    lastFile=sorted(os.listdir(folderFile), key=lambda f: os.path.getmtime(os.path.join(folderFile, f)), reverse=True)
+    try:
+        if nameFile in os.listdir(pathDirectoryCreate):
+            print('Arquivo já baixado')
+            os.remove(os.path.join(folderFile, lastFile[0]))
+        else:
+            shutil.move(os.path.join(folderFile, lastFile[0]), os.path.join(pathDirectoryCreate, nameFile))
+            sleep(1)
+            print('File moved and rename sucess')
+    except Exception as e:
+        print(f'ERROR TO MOVE {e}')
     return
 
-def openNavegator(e):
-    global lista
-    # efetua a execução e requisição do site
-    driver = webdriver.Chrome()
+def emitirNotasTomadas(e):
+    driver=webdriver.Chrome()
     driver.get('https://onlinecba.issnetonline.com.br/cuiaba/Login/Login.aspx?ReturnUrl=%2fcuiaba')
-    driver.execute_script("if(document.querySelector('div.form-group').children[0].innerHTML=='CPF'){document.querySelector('a.btn-block').click()}")
-    sleep(0.5)
+    sleep(1)
+    driver.execute_script("document.querySelector('a#btnAcionaCertificado.btn-block').click()")
+    sleep(1)
     pt.press('enter')
-    sleep(0.5)
-    allInfo=driver.find_elements(By.CSS_SELECTOR, 'ItemStyleNovo, td')
-    for a in range(len(allInfo)):
-        lista.append(allInfo[a].text)
+    sleep(1)
 
-        #retornar somente cnpj
-        if len(allInfo[a].text)==18:
-            print(allInfo[a].text)
-    sleep(5)
+    try:
+        inputSearch=driver.find_element(By.ID, 'TxtCPF')
+        sleep(1.5)
+        inputSearch.send_keys(e.control.data['cnpj'])
+        sleep(1)
+        driver.execute_script("document.querySelector('a#imbLocalizar.btn.btn-xs.btn-info').click()")
+        sleep(1)
+        driver.execute_script("function requestNT(value){if(document.querySelectorAll('a.rtIn')[value].innerHTML=='Consulta de Notas Tomadas' ){document.querySelectorAll('a.rtIn')[value].click()}};  for(a=0;a<document.querySelectorAll('a.rtIn').length;a++){requestNT(a)}")
+        sleep(4)
+        iframe=driver.find_element(By.ID, 'iframe')
+        driver.switch_to.frame(iframe)
+        sleep(1)
+        Select(driver.find_element(By.ID, 'ddlSerie')).select_by_visible_text('Nota Fiscal de Serviço Eletrônica - NFS-e')
+        sleep(1)
+        driver.execute_script("document.querySelector('input#txtDtEmissaoIni').value='01/04/2025'")
+        driver.execute_script("document.querySelector('input#txtDtEmissaoFim').value='30/04/2025'")
+        sleep(1)
+        driver.find_element(By.ID, 'btnBuscarNotas').click()
+        sleep(1)
+        driver.find_element(By.ID, 'dgDocumentos__ctl2_btnExpPdfTodos').click()
+        try:
+            WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'modal-dialog')))
+            print('return span dialog')
+        except:
+            sleep(5)
+            pt.hotkey('ctrl','s')
+            sleep(1)
+            pt.press('enter')
+            sleep(10)
+            CreateAndMoveFile('C:/Users/209/Desktop/script-code/execBot/xmlFolder', e.control.data['name'][:25], 'C:/Users/209/downloads', '', 'NotasTomadas.pdf')
+        print('Request exit...')
+        sleep(5)
+        return driver.quit()
+        
+
+    except TimeoutException as e:
+        print(f'Error {e}')
+        driver.switch_to.default_content()
+        return driver.quit()
     driver.quit()
-    return lista
-    # executa a listagem de todos os cnpjs
-    # test=driver.execute_async_script
-    # lista.append(test('for(a=0;a<document.querySelectorAll("tr.ItemStyleNovo").length;a++){console.log(document.querySelectorAll("tr.ItemStyleNovo")[a].children[1].innerHTML)}'))
-    
-    #retorna o valor do titulo na aba
-    
-    
-    #Formas de executar o script no pageSource
-    textBox=driver.execute_async_script
-    #textBox("document.querySelector('a.gb_X').innerHTML=''")
-    
-    
-    
-    #buttonSearch.send_keys(Keys.RETURN)
-    #assert "Gmail" in driver.page_source
+    return
 
-def execAutomatic(e):
+def automaticNT(driver, folderName):
+        driver.execute_script("function requestNT(value){if(document.querySelectorAll('a.rtIn')[value].innerHTML=='Consulta de Notas Tomadas' ){document.querySelectorAll('a.rtIn')[value].click()}};  for(a=0;a<document.querySelectorAll('a.rtIn').length;a++){requestNT(a)}")
+        sleep(4)
+        iframe=driver.find_element(By.ID, 'iframe')
+        driver.switch_to.frame(iframe)
+        sleep(1)
+        Select(driver.find_element(By.ID, 'ddlSerie')).select_by_visible_text('Nota Fiscal de Serviço Eletrônica - NFS-e')
+        sleep(1)
+        driver.execute_script("document.querySelector('input#txtDtEmissaoIni').value='01/04/2025'")
+        driver.execute_script("document.querySelector('input#txtDtEmissaoFim').value='30/04/2025'")
+        sleep(1)
+        driver.find_element(By.ID, 'btnBuscarNotas').click()
+        sleep(1)
+        driver.find_element(By.ID, 'dgDocumentos__ctl2_btnExpPdfTodos').click()
+        try:
+            WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'modal-dialog')))
+            print('return span dialog')
+        except:
+            sleep(5)
+            pt.hotkey('ctrl','s')
+            sleep(1)
+            pt.press('enter')
+            sleep(1)
+            pt.hotkey('alt','f4')
+            sleep(10)
+            CreateAndMoveFile('C:/Users/209/Desktop/script-code/execBot/xmlFolder', folderName[:25], 'C:/Users/209/downloads', '', 'NotasTomadas.pdf')
+        print('Request exit...')
+        driver.switch_to.default_content()
+        return 
+
+def requestLivro(driver, folderName):
+        #retornar um valor que requisita de forma mais fluida
+        driver.execute_script("function requestLivro(valueIndex){if(document.querySelectorAll('a.rtIn')[valueIndex].innerHTML=='Emitir Livro Fiscal' ){document.querySelectorAll('a.rtIn')[valueIndex].click() } }; for(a=0;a<document.querySelectorAll('a.rtIn').length;a++){requestLivro(a)}")
+        try:
+            iframe=driver.find_element(By.ID, 'iframe')
+            driver.switch_to.frame(iframe)
+            Select(driver.find_element(By.ID, 'ddlTipoDocumento')).select_by_visible_text('Livro Fiscal')
+            sleep(1.5)
+            driver.find_element(By.ID, 'txtLivroFiscalNumLivro').send_keys('1')
+            driver.find_element(By.ID, 'txtLivroFiscalPagInicial').send_keys('1')
+            driver.find_element(By.ID, 'txtLivroFiscalDtInicial').send_keys('01/04/2025')
+            driver.find_element(By.ID,'txtLivroFiscalDtFinal').send_keys('30/04/2025')
+            driver.find_element(By.ID, 'btnGerar').click()
+            sleep(10)
+            pt.hotkey('ctrl','s')
+            sleep(1)
+            pt.press('enter')
+            sleep(1)
+            pt.hotkey('alt', 'F4')
+            # pt.press(['tab','tab','tab','tab','tab','tab','tab','tab','tab','tab','tab','tab','tab','tab','tab','tab','tab','enter'])
+            sleep(5)
+            print(folderName)
+            CreateAndMoveFile('C:/Users/209/Desktop/script-code/execBot/xmlFolder', folderName[:25], 'C:/Users/209/downloads/', 'Relatorio.pdf', 'livro.pdf')
+            sleep(10)
+            print('requisição de alterção de livro efetuada')
+        except:
+            pass
+     
+        return driver.switch_to.default_content()
+
+
+def execAutomatic(pathFile):
+    print(pathFile)
     lenPrev=0
     driver = webdriver.Chrome()
     #executa a requisição do site com um certificado/alterar verify
@@ -79,119 +257,168 @@ def execAutomatic(e):
     pt.press('enter')
     sleep(1)
     #executa a filtragem dos dados verify page select
-    listaV=apiModule=testPandas.request.getFile('')
-    execScript=driver.find_element(By.ID, 'TxtCPF')
-    execScript.send_keys(f'{listaV[1]}')
-    sleep(1)
-    execScript0=driver.find_elements(By.CLASS_NAME, "btn.btn-xs.btn-info")
-    execScript0[1].click()
-    sleep(1)
-    sleep(5)
-    scriptExec0=driver.execute_script("""
-    function test(){
-        valueIndex=document.querySelector('#iframe').contentWindow.document.querySelector('select.form-control')
-        document.querySelector('#iframe').contentWindow.document.querySelector('select.form-control').selectedIndex=1
-        valueIndex.dispatchEvent(new Event('change'))
+    lista=requestXLSX(list(), pathFile).returnXLSX()
+    urlHome=driver.current_url
+    while len(lista)>0:
+        print(lista[1])
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'TxtCPF')))
+        driver.execute_script("document.querySelector('input#TxtCPF.form-control').value=''")
+        driver.find_element(By.ID, 'TxtCPF').send_keys(lista[0])
+        sleep(1)
+        driver.find_element(By.ID, 'imbLocalizar').click()
+        sleep(1)
+        requestLivro(driver, lista[1]) #requisita o livro fiscal
+        try:
+            WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'modal-dialog')))
+            driver.find_element(By.CLASS_NAME, 'btn.btn-info.nc-ok').click
+        except:    
+            sleep(5)
+            requestXMLNota(driver, lista[1]) #requisita as nfs de serviços
+            sleep(5)
+            automaticNT(driver, lista[1]) # requisica as nfs de serviços tomados
+        del lista[0]
+        sleep(1)
+        del lista[0]
+        driver.get(urlHome)
+    return driver.quit()
 
-        setTimeout(function(){
-                    document.querySelector('#iframe').contentWindow.document.querySelector('a.btn.btn-xs.btn-success.pull-right').click();
-                    if(document.querySelector('a.btn.btn-xs.btn-success.pull-right')){
-                        console.log('request')
-                    }
-                    },10000)                  
-        return console.log(valueIndex.selectedIndex)
-    }                                  
-    function requestTec(valueIn){
-        
-        if(document.querySelectorAll('a.rtIn')[valueIn].innerHTML=='Emissão de Guia'){
-            document.querySelectorAll('a.rtIn')[valueIn].click();
-            setTimeout(test,2000)                              
-            } 
-        }; 
-    for(a=0;a<document.querySelectorAll('a.rtIn').length;a++){ requestTec(a) };""")
-    sleep(5)
-    pt.press('tab')
-    sleep(1)
-    pt.press('enter')
-    sleep(5)
-    d=driver.execute_script("document.querySelector('a#ibFechamento').click()")
-    sleep(10)
-    
-    #driver.execute_script("document.querySelectorAll('a.dropdown-toggle')[1].click()")
-    
-    
-    sleep(5)
 
-    driver.quit()
-    return
+#atribuição de atalhos as funções
+def on_keyboardEvent(e: ft.KeyboardEvent):
+    print(type(e.key), e.key)
+    if e.key=='F1':
+        execAutomatic(e)
+        return 
 
 def mainFletApp(page:ft.Page):
-    page.theme_mode=ft.ThemeMode.LIGHT
-    page.title='App Title'
-    page.vertical_alignment=ft.MainAxisAlignment.CENTER
+    #estilização de temas e titulo
+    is_dark_mode = ft.Ref[bool]()
+    icon_mode = ft.Ref[ft.IconButton]()
+
+    page.theme=ft.Theme(color_scheme_seed=ft.Colors.PINK_100)
+    page.title='Tally Automation System'
+    #alinhamento
+    page.vertical_alignment=ft.MainAxisAlignment.START
     page.horizontal_alignment=ft.CrossAxisAlignment.CENTER
+    page.on_keyboard_event=on_keyboardEvent
+    
+    def chooseMode(e):
+        is_dark_mode.current=not is_dark_mode.current
+        icon_mode.current.icon=(ft.Icons.DARK_MODE if is_dark_mode.current else ft.Icons.LIGHT_MODE)
+        page.theme_mode = ft.ThemeMode.DARK if is_dark_mode.current else ft.ThemeMode.LIGHT
+        page.update()
+
+        return print(icon_mode.current.icon)
+    btn = ft.IconButton(icon=ft.Icons.LIGHT_MODE,ref=icon_mode, icon_size=25,tooltip='Alterar Tema',on_click=chooseMode)
+    page.appbar=ft.AppBar(
+        leading=ft.Image(src='logo.png', border_radius=ft.border_radius.all(50)),
+        leading_width=100,title=ft.Row(controls=[ft.Text('Tolls'), ft.Icon(ft.Icons.TASK_ALT)]),center_title=False,
+        actions=[btn],
+        bgcolor=ft.Colors.WHITE
+    )
+
+    pastaXML=os.path.abspath("xmlFolder")
+        # efetua a execução e requisição do site
+    chrome_options=Options()
+    chrome_options.set_capability('goog:loggingPrefs',{'browser':'ALL'})
+    prefs={
+        'download.default_directory':pastaXML,
+        'download.prompt_for_download':False,
+        'download.directory_upgrade':True,
+        'safebrowsing.enabled':True
+    }
     lista=[]
-    buttonExec=ft.ElevatedButton(text='Execute', on_click=execAutomatic)
+    pathFile=''
+    #lista=requestXLSX(list() )
+    #lista=lista.returnXLSX('')
+    
+    def planilhaIndex(e: ft.FilePickerResultEvent):
+        global lista, pathFile
+        print(f"Selected files: {str(e.files[0].path)[-4:]}")
+        try: 
+            if str(e.files[0].path)[-4:]=='xlsx' and 'CNPJ/CPF/CAEPF' in pd.read_excel(e.files[0].path, nrows=0).columns.tolist():
+                pathFile=e.files[0].path
+                lista=requestXLSX(list(),e.files[0].path).returnXLSX()
+                page.remove(listWithFunction[0])
+                page.add(listWithFunction[2])
+                page.update()
+                requestPageEmpresasCB()
+            else:
+                page.add(listWithFunction[1])
+                page.update()
+                sleep(5)
+                page.remove(listWithFunction[1])
+        except Exception as e:
+            print(f'Error {e}')
+    file_picker=ft.FilePicker(on_result=planilhaIndex)
+    page.overlay.append(file_picker)
+    
+
     def requestInfo():
         global lista
-        lista=[]
+        pastaXML=os.path.abspath("xmlFolder")
         # efetua a execução e requisição do site
         chrome_options=Options()
         chrome_options.set_capability('goog:loggingPrefs',{'browser':'ALL'})
+        prefs={
+            'download.default_directory':pastaXML,
+            'download.prompt_for_download':False,
+            'download.directory_upgrade':True,
+            'safebrowsing.enabled':True
+        }
+        lista=[]
+
         driver = webdriver.Chrome(options=chrome_options)
 
         driver.get('https://onlinecba.issnetonline.com.br/cuiaba/Login/Login.aspx?ReturnUrl=%2fcuiaba')
         sleep(1)
-        driver.execute_script("if(document.querySelector('div.form-group').children[0].innerHTML=='CPF'){document.querySelector('a.btn-block').click()}")
-        sleep(1)
-        #debbug delay enter
+        driver.execute_script("document.querySelector('a#btnAcionaCertificado.btn-block').click()")
+        sleep(5)
+        pt.press('enter')
+        sleep(0.5)
         try:
-            WebDriverWait(driver, 1.5).until(EC.presence_of_element_located((By.CLASS_NAME,'modal-dialog')))
-            driver.execute_script("if(document.querySelector('div.form-group').children[0].innerHTML=='CPF'){document.querySelector('a.btn-block').click()}")
-            sleep(1)
-            pt.press(['tab','tab','enter'])    
+            while WebDriverWait(driver, 1.5).until(EC.presence_of_element_located((By.CLASS_NAME, 'modal-dialog'))):
+                sleep(1.5)
+                driver.execute("document.querySelector('button.btn.btn-info.nc-ok').click()")
+                sleep(1.5)
+                driver.execute_script("document.querySelector('a#btnAcionaCertificado.btn-block').click()")
+                sleep(1.5)
+                pt.press('enter')
+                sleep(1.5)
         except:
-            pt.press('enter')
             pass
-
         infoByPlan=requestXLSX(list())
         returnTrue=0
-        #testPandas.request.getFile('')
-        for a in infoByPlan.returnList(''):
+        #for a in testPandas.request.getFile(''):
+        for a in infoByPlan.returnXLSX(''):
             sleep(0.5)
             driver.execute_script("document.querySelector('input#TxtCPF.form-control').value=''")
             inputEnter=driver.find_element(By.ID, 'TxtCPF')
             inputEnter.send_keys(f'{a}')
             sleep(1)
             driver.execute_script("document.querySelector('a#imbLocalizar').click()")
-            sleep(1.5)
+            sleep(5)
             
             returnTrue=0
             try:
-                WebDriverWait(driver, 10).until(EC.title_is('ISSNet On-Line - Nota Eletrônica'))
-            except TimeoutException:
-                returnTrue+=1
-            if driver.title!='Empresas': 
-                driver.execute_script("console.log(document.querySelector('span#lblNomeEmpresa').innerHTML)")
+                WebDriverWait(driver, 1.5).until(EC.presence_of_element_located((By.CLASS_NAME, 'modal-dialog')))
+                returnTrue=returnTrue+1
                 sleep(1)
-            else:
-                driver.execute_script("console.log('error')")
-            log=driver.get_log('browser')
-
-            dictLog=log[-1]
-            initText=dictLog['message'].find('"')
-            dictLog=dictLog['message'][initText+1:len(dictLog['message'])-1]
-            if dictLog!='error':
+                driver.execute_script("document.querySelector('button.btn.btn-info.nc-ok').click()")
+                print('valor not found')
+                
+                pass
+                
+            except TimeoutException:
+                driver.execute_script("console.log(document.querySelector('span#lblNomeEmpresa').innerHTML)")
+                
+                log=driver.get_log('browser')
+                dictLog=log[-1]
+                initText=dictLog['message'].find('"')
+                dictLog=dictLog['message'][initText+1:len(dictLog['message'])-1]
                 lista.append(dictLog)
                 lista.append(a)
-            else:
-                print('valor not found')
-                pt.press('tab')
-                sleep(1)
-                pt.press('enter')
-                returnTrue+=1
-                pass
-            print(dictLog)
+                sleep(5)
             if returnTrue==0:
                 driver.execute_script("document.querySelectorAll('a.dropdown-toggle')[1].click()")
                 sleep(1)
@@ -211,59 +438,117 @@ def mainFletApp(page:ft.Page):
         driver.get('https://onlinecba.issnetonline.com.br/cuiaba/Login/Login.aspx?ReturnUrl=%2fcuiaba')
         sleep(1)
         driver.execute_script("document.querySelector('a#btnAcionaCertificado').click()")
-        sleep(1)
+        sleep(1.5)
         pt.press('enter')
         sleep(1)
         inputEnter=driver.find_element(By.ID, 'TxtCPF')
-        inputEnter.send_keys(f'{e.control.key}')
-        print(e.control.key)
+        inputEnter.send_keys(f'{e.control.data['cnpj']}')
+        print(e.control.data)
         sleep(0.5)
         driver.execute_script("document.querySelector('a#imbLocalizar').click()")
         sleep(1.5)
         if driver.title!='Empresas':
             # return content driver.switch_to.default_content()
-            driver.execute_script("""
-                                  function verifyNote(counter){
-                                    if(document.querySelectorAll('a.rtIn')[counter].innerHTML=='Emissão de Guia'){
-                                        document.querySelectorAll('a.rtIn')[counter].click();
-                                        setTimeout(function(){
-                                            document.querySelector('#iframe').contentWindow.document.querySelector('select.form-control').selectedIndex=1; 
-                                            document.querySelector('#iframe').contentWindow.document.querySelector('select.form-control').dispatchEvent(new Event('change'))
-                                        },1000)
-                                    } 
-                                  };  
-                                  
-                                  for(a=0;a<document.querySelectorAll('a.rtIn').length;a++){verifyNote(a); document.querySelectorAll('a.rtIn')[a].innerHTML}
-                                  
-                                  """)
-            sleep(1)
-            driver.execute_script("console.clear(); if(document.querySelector('iframe#iframe').contentWindow.document.querySelector('body').className==''){console.log(true)}else{false}")
-            sleep(5)
-            log=driver.get_log('browser')
-            print(log)
-            try:
-                driver.find_element(By.ID, 'ibFechamento').click()
-            except:
-                pass
-            sleep(1)
-            
-        sleep(10)
-        driver.quit()
+            for a in range(0,2):
+                driver.execute_script("""
+                                    function verifyNote(counter){
+                                        if(document.querySelectorAll('a.rtIn')[counter].innerHTML=='Emissão de Guia'){
+                                            document.querySelectorAll('a.rtIn')[counter].click();
+                                            setTimeout(function(){
+                                                
+                                                document.querySelector('#iframe').contentWindow.document.querySelector('select.form-control').selectedIndex=1; 
+                                                document.querySelector('#iframe').contentWindow.document.querySelector('select.form-control').dispatchEvent(new Event('change'))
+                                            },1000)
+                                        } 
+                                    };  
+                                    
+                                    for(a=0;a<document.querySelectorAll('a.rtIn').length;a++){verifyNote(a); document.querySelectorAll('a.rtIn')[a].innerHTML}
+                                    
+                                    """)
+                sleep(5)
+                iframe=driver.find_element(By.ID, 'iframe')
+                driver.switch_to.frame(iframe)
+                popupAtivo=False
+                try:
+                    #requisições mescladas efetuar alteração dos valores incluidoss
+                    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'bootbox.modal.fade.in')))
+                    print('Request ativa')
+                    sleep(1)
+                    pt.press(['tab', 'enter'])
+                    popupAtivo=True
+                    sleep(5)
+                except:
+                    if popupAtivo==False:
+                        driver.find_element(By.ID, 'ibFechamento').click()
+                        sleep(1)
+                        print('Request não ativa')
+                    pass
+                try:
+                    Select(driver.find_element(By.CLASS_NAME, 'form-control')).select_by_visible_text('Serviços Contratados')
+                    try:
+                        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'bootbox.modal.fade.in')))
+                        sleep(1)
+                        pt.press(['tab', 'enter'])
+                    except:
+                        popupAtivo=False
+                except:
+                    if popupAtivo==False:
+                        driver.find_element(By.ID, 'ibFechamento').click()
+                        sleep(1)
+                        print('Request não ativa')
+                    pass
+                driver.switch_to.default_content()
+            sleep(10)
+            driver.quit()
         return 
     
+    def requestEmissaoLivro(e):
+        driver = webdriver.Chrome()
+        driver.get('https://onlinecba.issnetonline.com.br/cuiaba/Login/Login.aspx?ReturnUrl=%2fcuiaba')
+        sleep(1)
+        driver.execute_script("document.querySelector('a#btnAcionaCertificado').click()")
+        sleep(1.5)
+        pt.press('enter')
+        sleep(5)
+        driver.execute_script("document.querySelector('input#TxtCPF.form-control').value=''")
+        inputEnter=driver.find_element(By.ID, 'TxtCPF')
+        sleep(1)
+        inputEnter.send_keys(e.control.data['cnpj'])
+        sleep(1)
+        driver.execute_script("document.querySelector('a#imbLocalizar').click()")
+        
+        try:
+            #criar def de loop em retorno de tentativa
+            WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.CLASS_NAME, 'modal-dialog')))
+            sleep(1)
+            driver.execute_script("document.querySelector('button.btn.btn-info.nc-ok').click()")
+        
+        except TimeoutException:
+            requestLivro(driver, e.control.data['name'])
+        sleep(15)
+        print('Finalização de requisição')
+        driver.quit()
+        return
+
+    def requestAutomatic(e):
+        try:
+            page.add(page.open(e.control.data['spanControl']))
+        except:
+            pass
+        sleep(1)
+        execAutomatic(e.control.data['pathFile'])
+        sleep(5)
+        page.close(e.control.data['spanControl'])
+        return
     
-    lista=requestInfo()
     
+
     #First row
     colunaInfo=ft.Column(
         alignment=ft.MainAxisAlignment.SPACE_AROUND,
-        #horizontal_alignment=ft.CrossAxisAlignment.STRETCH  # (opcional) Alinha a coluna no centro vertical da tela
+        horizontal_alignment=ft.CrossAxisAlignment.STRETCH,
+        scroll='auto',expand=True  # (opcional) Alinha a coluna no centro vertical da tela
     )
-
-    containerBase=ft.Container(
-        
-    )
-
     colunaInfo.controls.append(
         ft.Row(controls=[
             ft.Container(ft.Text('RAZÃO SOCIAL', weight=ft.FontWeight.BOLD), alignment=ft.alignment.center, width=400,bgcolor='#BBBBBB',border_radius=5),
@@ -272,64 +557,44 @@ def mainFletApp(page:ft.Page):
         ],alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
     )
     
-    print(lista)
-    while len(lista)>0:
-        
-        valorIndex=0
-        valorA=1
-        #valores = infoEmp.value.split()
-        # for a in valores:
-        #     if len(a)==18:
-        #         valorIndex=valores.index(a)
-        # #recadastro
-        
-        #valores[len(valores)-1]
-        #Status
-        #valores[len(valores)-2]
-        #Insc. Municipal
-        #valores[len(valores)-3]
-            #cnpj
-            #valores[len(valores)-4]
-            #nome
-            #' '.join(valores[0:valorIndex])
-            #nameRefined=' '.join(valores[0:valorIndex])
-            #spaceAlign=''
-            #while len(nameRefined)>50:
-            #   spaceAlign=spaceAlign+' '
+    page.add(ft.Text(spans=[ft.TextSpan('Fechamento Empresas', ft.TextStyle(size=100, color=ft.Colors.BLACK, italic=False, bgcolor=ft.Colors.GREEN_100, weight=ft.FontWeight.NORMAL,  foreground=ft.Paint(gradient=ft.PaintLinearGradient((20, 100), (250, 20), [ft.Colors.BLUE, ft.Colors.PINK]) )))] ))
+    listWithFunction=[ft.Column(controls=[ft.Text('Select a Controle Contábil Geral excel file'),ft.ElevatedButton('Choose files...', on_click=lambda _: file_picker.pick_files(allow_multiple=False))],alignment=ft.MainAxisAlignment.CENTER,horizontal_alignment=ft.CrossAxisAlignment.CENTER), ft.Text('ERROR INVALID FORMAT', color=ft.Colors.RED), ft.ProgressRing(),ft.AlertDialog(modal=True, title=ft.Text('Executando automação'), actions=[ft.TextButton('Cancelar', on_click=lambda e: page.close(listWithFunction[3]))]) ]
+    page.add(listWithFunction[0])
+    
+    def requestPageEmpresasCB():
+        global lista, pathFile
+        print(pathFile)
+        while len(lista)>0:
+            #Alimentando as colunas com respectivas linhas com valores referenciados
+            widget=[ft.ElevatedButton(text='GUIAS', data={'cnpj':lista[0], 'name':lista[1]},on_click=requestEmitir), ft.ElevatedButton(text='NFS', data={'cnpj':lista[0], 'name':lista[1]}, on_click=ExecuteEmissoes),ft.ElevatedButton(text='LIVRO', data={'cnpj':lista[0], 'name':lista[1]}, on_click=requestEmissaoLivro),ft.ElevatedButton(text='NOTAS TOMADAS', data={'cnpj':lista[0], 'name':lista[1]}, on_click=emitirNotasTomadas)]
             
-        colunaInfo.controls.append(
-            ft.Row(
-            controls=[
-                
-                ft.Container(ft.Text(lista[1]), alignment=ft.alignment.center, width=400,bgcolor='#D9DAD9',border_radius=5),
-                ft.Container(ft.Text(lista[0]), alignment=ft.alignment.center, width=400,bgcolor='#D9DAD9',border_radius=5),
-                ft.Container(ft.ElevatedButton(text='Emitir Guias', key=lista[1],on_click=requestEmitir) , alignment=ft.alignment.center, width=400,bgcolor='#D9DAD9',border_radius=5),
-                #new lines
-                ft.Container(ft.ElevatedButton(text='Emitir NF', key='argReturn1', data='argsReturnAny',on_click=requestMSG) , alignment=ft.alignment.center, width=400,bgcolor='#D9DAD9',border_radius=5),
-                ft.Container(ft.ElevatedButton(text='Emitir Livro', key='argsReturn1', data='argsReturnAny', on_click=requestMSG) , alignment=ft.alignment.center, width=400,bgcolor='#D9DAD9',border_radius=5)
-                
+            colunaInfo.controls.append(
+                ft.Row(
+                controls=[
+                    
+                    ft.Container(ft.Text(lista[1]), alignment=ft.alignment.center, width=400,bgcolor='#D9DAD9',border_radius=5),
+                    ft.Container(ft.Text(lista[0]), alignment=ft.alignment.center, width=400,bgcolor='#D9DAD9',border_radius=5),
+                    ft.Container(content=ft.Row(controls=widget, alignment=ft.MainAxisAlignment.SPACE_AROUND) , alignment=ft.alignment.center, width=400,border_radius=5)
+                    
+                ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+            )
+            )
+            del lista[0]
+            sleep(0.5)
+            del lista[0]
+            print(len(lista))
+        sleep(5)
+        page.remove(listWithFunction[2])
+        page.add(
+            ft.ElevatedButton(text='Executar Automação', data={'pathFile':pathFile,'spanControl':listWithFunction[3]},on_click=requestAutomatic),
+            colunaInfo,
 
-            ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
         )
-        )
-        containerBase.controls.append(colunaInfo)
-        del lista[0]
-        sleep(0.5)
-        del lista[0]
-        print(len(lista))
-    sleep(5)
-    page.add(ft.Text('Fechamento Empresas', size=100, color=ft.Colors.BLACK, italic=False, bgcolor=ft.Colors.GREEN_100, weight=ft.FontWeight.W_100, selectable=False))
-    page.add(
-        ft.ElevatedButton(text='Executar Automação', on_click=execAutomatic),
-        containerBase
-
-    )
-    page.update()
+        page.update()
 
     return
 
 def requestMSG(msg):
-
     return print(msg.control.key)
 
-ft.app(target=mainFletApp)
+ft.app(target=mainFletApp, assets_dir='/')
