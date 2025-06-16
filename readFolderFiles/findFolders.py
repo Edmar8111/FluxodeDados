@@ -23,5 +23,5 @@ class RequestFolder:
             print(shutil.copy2(os.path.join(self.folder, i), os.path.abspath(moveFolder)) if i not in fileFolder else False)
         return 'File(s) Moved'
     
-v=RequestFolder('C:/Users/edmar/Desktop/Essencial_codes/sdk', 0, 'nt').copyFiles('folder')
+v=RequestFolder('folder_complete_path', 0, 'nt').copyFiles('folder')
 print(v)
