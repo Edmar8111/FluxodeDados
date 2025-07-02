@@ -1,0 +1,56 @@
+  {%extends 'first.html' %}
+  
+  {%block link_add%}
+  <link rel="stylesheet" href="{{url_for('static', filename=info_file.0)}}">
+  <script src="{{url_for('static', filename=info_file.1)}}" defer></script>
+  {%endblock%}
+  {% if message %}
+    <p style="text-align:center;font-weight:bold;color:#666;">Request Ativo</p>
+  {% endif %}
+  {%block header_content%}
+  <h1 id="tituloIndex"></h1>
+    <div class="header-right">
+      <div class="search-container">
+        <select id="kind-search">
+          <option value="nome">Nome</option>
+          <option value="cnpj">CNPJ</option>
+        </select>
+        <input type="text" id="search" placeholder="Buscar">
+        <button id="bt-search">Buscar</button>
+      </div>
+
+      <button id="iconAddCompany" onclick="window.location.href=`http://${window.location.host}/page/register/{{items.1}}`">
+        <img id="logoCompany" src='' alt="Adicionar Empresa">
+        <script>
+          document.querySelector('img#logoCompany').src = `http://${window.location.host}/imgtrack/addCompanyIcon.png`;
+        </script>
+      </button>
+
+      <div class="select-wrapper">
+        <label for="selectModalidade">Escolha a modalidade:</label>
+        <select id="selectModalidade">
+          <option value="" disabled selected>Selecione uma opção</option>
+          <option value="lucroPresumido">Lucro Presumido</option>
+          <option value="simplesNacional">Simples Nacional</option>
+        </select>
+      </div>
+    </div>
+    {%endblock%}
+
+
+  <h1 id="tituloIndex"></h1>
+
+  {%block main_content%}
+    {% for item in items.0 %}
+    <div onclick="window.location.href=`http://${window.location.host}/page/{{items.1}}/{{item.id}}`" class="card">
+      <h3><a>{{ item.razao }}</a></h3>
+      <div class="info"><i>🏷️</i>ID: {{ item.id }}</div>
+      <div class="info"><i>📄</i>{{ item.cnpj }}</div>
+      <div class="info"><i>📍</i>{{ item.cidade }}</div>
+      <div class="tags">
+        <span class="tag modalidade">{{ item.modalidade }}</span>
+        <span class="tag iss">ISS Cuiabá: {{ item.issqncuiaba }}</span>
+      </div>
+    </div>
+    {% endfor %}
+  {%endblock%}

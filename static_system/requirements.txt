@@ -1,0 +1,12 @@
+pyautogui
+selenium
+flask
+cython
+setuptools
+pandas
+bs4
+nuitka
+requests
+openpyxl
+pycryptodome
+pycryptodomex

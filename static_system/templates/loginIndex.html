@@ -1,0 +1,46 @@
+{% extends 'first.html' %}
+
+
+{%block title_content%}<title>EVA Generation XP - Login</title>{%endblock%}
+{%block link_add %}
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{url_for('static', filename='login_page.css')}}">
+{%endblock%}
+
+{%block main_content%}
+  <div class="container">
+    <div class="brand">EVA Generation XP</div>
+    <div class="title">Bem-vindo de volta</div>
+
+    <form method="POST" enctype="multipart/form-data" id="form" accept="">
+      <script>document.querySelector('form#form').action=`http://${window.location.host}/login/page`</script>
+      <div class="input-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="seu@email.com" required />
+      </div>
+
+      <div class="input-group password-toggle">
+        <label for="senha">Senha</label>
+        <input type="password" id="senha" name="senha" placeholder="●●●●●●" required />
+        <span class="toggle-icon" onclick="toggleSenha()">👁</span>
+      </div>
+
+      <a href="#" class="forgot">Esqueci minha senha</a>
+      <button type="submit" class="btn">Entrar</button>
+    </form>
+
+    <div class="footer">
+      Não tem uma conta? <a href="">Cadastre-se</a>
+    <script>
+      document.querySelector('div.footer a').href=`http://${window.location.host}/registerAccount/page`
+    </script>
+    </div>
+  </div>
+
+  <script>
+    function toggleSenha() {
+      const input = document.getElementById('senha');
+      input.type = input.type === 'password' ? 'text' : 'password';
+    }
+  </script>
+{%endblock%}

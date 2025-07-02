@@ -1,0 +1,91 @@
+{%extends 'first.html'%}
+
+{%block link_add%}
+<link rel="stylesheet" href="{{url_for('static', filename='pagina_cnae.css')}}">
+<script src="{{url_for('static', filename='pagina_cnae.js')}}"></script>
+{%endblock%}
+
+{%block main_content%}
+    <div class="container">
+        <h1>Sistema de Consulta</h1>
+        <p class="subtitle">Digite um CNAE para obter informações detalhadas</p>
+
+        <div class="search-box">
+            <h3>🔍 Consultar Informações CNAE</h3>
+            <div class="search-input-wrapper">
+                <input type="text" id="inputConsulta" placeholder="Digite o código, ID ou valor para consultar..." />
+                <button onclick="consultar()">🔎 Consultar</button>
+            </div>
+        </div>
+
+        <div class="result-card" id="resultado">
+            <div class="section-box">
+                <h4>📘 CNAE <span id="cnae-id"></span></h4>
+                <div class="card-grid">
+                    <div class="card-info">
+                        <div class="label">Atividade Principal</div>
+                        <div class="value" id="atividade-principal"></div>
+                    </div>
+                    <div class="card-info">
+                        <div class="label">Atividades Secundárias</div>
+                        <div class="value" id="atividade-secundaria"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-box">
+                <h4>📊 Classificação Hierárquica</h4>
+                <div class="card-grid">
+                    <div class="card-info">
+                        <div class="label">Seção</div>
+                        <div class="value" id="secao"></div>
+                    </div>
+                    <div class="card-info">
+                        <div class="label">Divisão</div>
+                        <div class="value" id="divisao"></div>
+                    </div>
+                    <div class="card-info">
+                        <div class="label">Grupo</div>
+                        <div class="value" id="grupo"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-box">
+                <h4>📝 Informações</h4>
+                <div class="card-grid">
+                    <div class="card-info">
+                        <div class="label">Descrição</div>
+                        <div class="value" id="descricao"></div>
+                    </div>
+                    <div class="card-info">
+                        <div class="label">Observações</div>
+                        <div class="value" id="observacoes"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-box">
+                <h4>💰 Informações Fiscais</h4>
+                <div class="fiscal-box">
+                    <div class="fiscal-grid">
+                        <div class="fiscal-card">
+                            <div class="label">Anexo</div>
+                            <div class="value anexo" id="fiscal-anexo">III</div>
+                        </div>
+                        <div class="fiscal-card">
+                            <div class="label">Fator R</div>
+                            <div class="value fator" id="fiscal-fator">0.0384</div>
+                        </div>
+                        <div class="fiscal-card">
+                            <div class="label">Alíquota</div>
+                            <div class="value aliquota" id="fiscal-aliquota">6.73%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ref-box" id="referencia"></div>
+        </div>
+    </div>
+{%endblock%}

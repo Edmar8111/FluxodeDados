@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {%block title_content %}<title>Sistema Contabil</title>{%endblock%}
+  <link id="iconID" rel="icon" sizes="16x16 32x32 48x48 64x64">
+  <script>document.querySelector('link#iconID').href = `http://${window.location.host}/imgtrack/cloudIcon.png`</script>
+  {% block link_add %}{% endblock %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="{{url_for('static', filename='script.js')}}" defer></script>
+</head>
+<body>
+
+  <header>
+    <div class="container-header">
+      <button id="sidebarToggle" aria-label="Abrir menu lateral">&#9881;&#65039;</button>
+      <div class="logo">
+          {%if refresh.0==1%}
+              <img id="logo" src="" alt="logoTallyUp" onclick=refresh(1)>
+          {%elif refresh.0==2%}
+              <img id="logo" src="" alt="logoTallyUp" onclick=refresh(2)>
+          {%elif refresh.0==0%}
+            <img id="logo" src="" alt="logoTallyUp" onclick=refresh(0)>
+          {%endif%}
+        
+        
+      </div>
+    </div>
+
+    <div id="sidebar" class="sidebar">
+      <ul>
+        <li><a href="/pagina1">Página 1</a></li>
+        <li><a href="/pagina2">Página 2</a></li>
+        <li><a onclick=navigate('cnae/0')>CNAE Info</a></li>
+      </ul>
+    </div>
+
+    {% block header_content %}{% endblock %}
+  </header>
+
+  <main>
+    {% block main_content %}{% endblock %}
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <p><strong>Tally Up</strong></p>
+      <p>Email: contato@tallyup.com.br</p>
+      <p>Telefone: (11) 98765-4321</p>
+      <p>Endereço: Rua das Finanças, 123 - São Paulo, SP</p>
+    </div>
+    {% block footer_content %}{% endblock %}
+  </footer>
+
+  <script>
+    
+
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    const sidebar = document.getElementById('sidebar');
+    let autoCloseTimeout;
+
+    sidebarToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      sidebar.classList.toggle('active');
+      resetAutoClose();
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
+        sidebar.classList.remove('active');
+        clearTimeout(autoCloseTimeout);
+      }
+    });
+
+    sidebar.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        sidebar.classList.remove('active');
+        clearTimeout(autoCloseTimeout);
+      });
+    });
+
+    function resetAutoClose() {
+      clearTimeout(autoCloseTimeout);
+      autoCloseTimeout = setTimeout(() => {
+        sidebar.classList.remove('active');
+      }, 10000);
+    }
+
+    // Define o logo dinamicamente
+    document.getElementById('logo').src = `http://${window.location.host}/imgtrack/logo.png`;
+  </script>
+
+</body>
+</html>

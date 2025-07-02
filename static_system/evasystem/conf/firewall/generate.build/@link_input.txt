@@ -1,0 +1,5 @@
+"./__constants.o"
+"./__helpers.o"
+"./__loader.o"
+"./module.generate.o"
+"./static_src/CompiledFunctionType.o"

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" id="iconID" sizes="16x16 32x32 48x48 64x64" href="">
+  <script>document.querySelector('link#iconID').href=`http://${window.location.host}/imgtrack/cloudIcon.png`</script>
+  <title>Registro de Empresa</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9f9fb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      padding: 20px 30px;
+      background-color: #ffffff;
+      border-bottom: 1px solid #e0e0e0;
+      gap: 20px;
+      width: 100%;
+    }
+
+    #logo {
+      width: 135px;
+      cursor: pointer;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-left: 50px;
+      margin-right: 50px;
+    }
+
+    .select-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 14px;
+      font-family: monospace;
+      color: #333;
+    }
+
+    #selectModalidade {
+      outline: none;
+      font-family: monospace;
+      padding: 10px 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: white;
+      color: #333;
+      font-size: 14px;
+      appearance: none;
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg fill='%23666' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' d='M5.23 7.21a.75.75 0 011.06.02L10 11.584l3.71-4.354a.75.75 0 111.14.976l-4.25 5a.75.75 0 01-1.14 0l-4.25-5a.75.75 0 01.02-1.06z' clip-rule='evenodd' /%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 16px;
+      padding-right: 35px;
+      transition: border 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    #selectModalidade:hover,
+    #selectModalidade:focus {
+      border-color: #999;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      }
+
+    .container {
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      max-width: 700px;
+      width: 100%;
+      position: relative;
+      }
+
+    .icon {
+      text-align: center;
+      font-size: 48px;
+      color: #2e3a59;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 8px;
+      color: #1a1a1a;
+      }
+
+    p.subtitle {
+      text-align: center;
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 32px;
+      }
+
+    .delete-button {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        transition: transform 0.2s ease, opacity 0.2s ease;
+      }
+
+    .delete-button img {
+      width: 32px;
+      height: 32px;
+      opacity: 0.7;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .delete-button:hover img {
+      transform: scale(1.1);
+      opacity: 1;
+    }
+
+    form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group label {
+      margin-bottom: 6px;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .form-group input,
+    .form-group select {
+      padding: 12px;
+      font-size: 14px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      transition: border 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      border-color: #2e3a59;
+      outline: none;
+    }
+
+    button {
+      grid-column: 1 / -1;
+      padding: 14px;
+      background-color: #1a1a2e;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #33334d;
+    }
+
+    @media (max-width: 600px) {
+      form {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img id="logo" src="" alt="logoTallyUp" onclick="window.location.href=`http://${window.location.host}/page/{{item}}`">
+    <script>document.querySelector('img#logo').src=`http://${window.location.host}/imgtrack/logo.png`</script>
+    <div class="header-right">
+      <div class="select-wrapper">
+        <label for="selectModalidade">Escolha a modalidade:</label>
+        <select name="selectModalidade" id="selectModalidade">
+          <option value="" disabled selected>Selecione uma opção</option>
+          <option value="lucroPresumido">Lucro Presumido</option>
+          <option value="simplesNacional">Simples Nacional</option>
+        </select>
+      </div>
+    </div>
+    <script>
+      const selectModalidade = document.querySelector('#selectModalidade');
+      selectModalidade.addEventListener('change', function () {
+        window.location.href = `http://${window.location.host}/page/${selectModalidade.value}`;
+      });
+    </script>
+  </header>
+  <main class="container">
+    <div class="icon">📄</div>
+    {%if not itens %}
+      <h1>Registro de Empresa</h1>
+      <p class="subtitle">Preencha os dados da sua empresa para iniciar o processo de registro</p>
+      <form action="" id="formEdit" method="post" enctype="multipart/form-data" >
+        <script>document.querySelector('form#formEdit').action=`http://${window.location.host}/page/requestRegister`</script>
+
+        <div class="form-group">
+          <label for="razao">Razão Social</label>
+          <input type="text" name='razao' id="razao" placeholder="Digite a razão social da empresa" required>
+        </div>
+
+        <div class="form-group">
+          <label for="cnpj">CNPJ</label>
+          <input type="text" name='cnpj' id="cnpj" placeholder="00.000.000/0000-00" required>
+        </div>
+
+        <div class="form-group">
+          <label for="codigo">Codigo Dominio</label>
+          <input type="number" name='codigo' id="codigo"  placeholder="Digite o codigo da empresa" required>
+        </div>
+
+        <div class="form-group">
+          <label for="cidade">Cidade</label>
+          <input type="text" name='cidade' id="cidade" placeholder="Digite a cidade da empresa" required>
+        </div>
+
+        <div class="form-group">
+          <label for="ie">IE(Inscrição Estadual)</label>
+          <input type="text" name='ie' id="ie">
+        </div>
+
+        <div class="form-group">
+          <label for="im">IM(Inscrição Municipal)</label>
+          <input type="text" name='im' id="im" >
+        </div>
+
+        <div class="form-group">
+          <label for="simples">Optante pelo Simples</label>
+          <select name="simples" id="simples">
+            <option value="nao">Não</option>
+            <option value="sim">Sim</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="regime">Regime Tributário</label>
+          <select name="regime" id="regime">
+            <option value="simples me">Simples Nacional</option>
+            <option value="lucro presumido">Lucro Presumido</option>
+          </select>
+        </div>
+
+        <button type="submit">Registrar Empresa</button>
+      </form>
+    {%else%}
+      <h1>Editar Empresa</h1>
+      <p class="subtitle">Pagina de edição da empresa {{itens.razao}}</p>
+
+      <a class="delete-button" id="redirectDel" title="Deletar empresa">
+        <img id="iconDel" src="">
+      </a>
+      <script>
+        const delBtn = document.querySelector('#redirectDel');
+        const delIcon = document.querySelector('#iconDel');
+        delBtn.href = `http://${window.location.host}/page/deleting/{{itens.id}}/{{itens.modalidade}}`;
+        delIcon.src = `http://${window.location.host}/imgtrack/deleteIcon.png`;
+      </script>
+
+      <form id="formEdit" action="" method="post" enctype="multipart/form-data">
+        <script>
+          document.querySelector('form#formEdit').action = `http://${window.location.host}/page/edit/{{itens.modalidade}}/{{itens.id}}`;
+        </script>
+
+        <div class="form-group">
+          <label for="razao">Razão Social</label>
+          <input type="text" name='razao' id="razao" value='{{itens.razao}}' required>
+        </div>
+
+        <div class="form-group">
+          <label for="cnpj">CNPJ</label>
+          <input type="text" name='cnpj' id="cnpj" value='{{itens.cnpj}}' required>
+        </div>
+
+        <div class="form-group">
+          <label for="codigo">Codigo Dominio</label>
+          <input type="number" name='codigo' id="codigo" value='{{itens.codigo}}' required>
+        </div>
+
+        <div class="form-group">
+          <label for="cidade">Cidade</label>
+          <input type="text" name='cidade' id="cidade" value='{{itens.cidade}}' required>
+        </div>
+
+        <div class="form-group">
+          <label for="ie">IE(Inscrição Estadual)</label>
+          <input type="text" name='ie' id="ie" value='{{itens.ie}}'>
+        </div>
+
+        <div class="form-group">
+          <label for="im">IM(Inscrição Municipal)</label>
+          <input type="text" name='im' id="im" value='{{itens.im}}'>
+        </div>
+
+        <div class="form-group">
+          <label for="simples">Optante pelo Simples</label>
+          <select name="simples" id="simples">
+            <option value="nao" {% if itens.simples == 'nao' %}selected{% endif %}>Não</option>
+            <option value="sim" {% if itens.simples == 'sim' %}selected{% endif %}>Sim</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="regime">Regime Tributário</label>
+          <select name="regime" id="regime">
+            <option value="simples me" {% if itens.regime == 'simples me' %}selected{% endif %}>Simples Nacional</option>
+            <option value="lucro presumido" {% if itens.regime == 'lucro presumido' %}selected{% endif %}>Lucro Presumido</option>
+          </select>
+        </div>
+
+        <button type="submit">Alterar Empresa</button>
+      </form>
+    {%endif%}
+  </main>
+</body>
+</html>

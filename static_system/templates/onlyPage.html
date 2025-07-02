@@ -1,0 +1,256 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Painel Fiscal</title>
+  <link id="iconID" rel="icon" sizes="16x16 32x32 48x48 64x64">
+  <script>document.querySelector('link#iconID').href = `http://${window.location.host}/imgtrack/cloudIcon.png`</script>
+  <style>
+    header #logo {
+      width: 135px;
+      cursor: pointer;
+      background-color: aliceblue;
+    }
+
+    main {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f6f8fc;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Card de identificação da empresa */
+    .company-card {
+      background: white;
+      padding: 20px 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      margin-bottom: 40px;
+      text-align: center;
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .company-card h2 {
+      color: #0066cc;
+      margin-bottom: 8px;
+    }
+
+    .company-card p {
+      color: #444;
+      font-size: 14px;
+    }
+
+    /* Botão de edição minimalista */
+    #editButton {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: none;
+      border: none;
+      opacity: 0.5;
+      cursor: pointer;
+      transition: opacity 0.3s ease, transform 0.2s ease;
+    }
+
+    #editButton img {
+      width: 25px;
+      height: 25px;
+    }
+
+    #editButton:hover {
+      opacity: 0.7;
+      transform: scale(1.1);
+    }
+
+    /* Botão DeSTDA estilizado */
+    #destdaButton {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      background-color: #3b82f6;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      z-index: 1;
+    }
+
+    #destdaButton:hover {
+      background-color: #2563eb;
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 480px) {
+      #destdaButton {
+        padding: 8px 12px;
+        font-size: 13px;
+        bottom: 10px;
+        right: 10px;
+      }
+    }
+
+    /* Título */
+    h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    p.subtitle {
+      margin-bottom: 30px;
+      color: #555;
+    }
+
+    /* Grid de botões */
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    .service-card {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s ease;
+      cursor: pointer;
+    }
+
+    .service-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .service-card h3 {
+      margin: 0;
+      margin-bottom: 6px;
+    }
+
+    .service-card p {
+      font-size: 14px;
+      color: #444;
+    }
+
+    .service-card a {
+      margin-top: 16px;
+      font-weight: bold;
+      color: #333;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .service-card a::after {
+      content: '→';
+      margin-left: 6px;
+      transition: margin-left 0.2s;
+    }
+
+    .service-card a:hover::after {
+      margin-left: 10px;
+    }
+
+    .blue { background-color: #3b82f6; color: white; }
+    .green { background-color: #22c55e; color: white; }
+    .purple { background-color: #a855f7; color: white; }
+    .orange { background-color: #f97316; color: white; }
+
+    .blue a, .green a, .purple a, .orange a {
+      color: white;
+    }
+
+    .service-card h3, .service-card p, .service-card a {
+      color: inherit;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img id="logo" src="" alt="logoTallyUp" onclick="window.location.href=`http://${window.location.host}/page/{{items.1}}`">
+    <script>
+      document.querySelector('img#logo').src = `http://${window.location.host}/imgtrack/logo.png`
+    </script>
+  </header>
+  <main>
+    {% for item in items.0 %}
+    <div class="company-card">
+      {% if item.ie != None %}
+        <button id="destdaButton" onclick="window.open(`http://${window.location.host}/gerarfile/{{item.modalidade}}/{{item.id}}`, '_blank')">Gerar DeSTDA</button>
+      {% endif %}
+      <button id="editButton" onclick="window.location.href=`http://${window.location.host}/page/edit/{{item.modalidade}}/{{item.id}}`">
+        <img src="" alt="Editar Empresa" id="companyEdit">
+        <script>
+          document.querySelector('img#companyEdit').src = `http://${window.location.host}/imgtrack/editIcon.png`
+        </script>
+      </button>
+      <h2>{{ item.razao }}</h2>
+      <p id="cnpjTXT">CNPJ: {{ item.cnpj }}</p>
+    </div>
+    {% endfor %}
+
+    <h1>Escolha uma Ação</h1>
+    <p class="subtitle">Selecione o serviço fiscal que deseja utilizar</p>
+    <div class="service-grid">
+      {%if files.livros==1%}
+        <div class="service-card blue" onclick="window.open(`http://${window.location.host}/arquivosApi/${document.querySelector('#cnpjTXT').innerHTML.slice(4).replace(/[^a-zA-Z0-9]/g, '')}/livros`, '_blank')">
+          <h3>Livro Fiscal</h3>
+          <p>Gerencie registros fiscais e contábeis</p>
+          <a>Acessar serviço</a>
+        </div>
+      {%endif%}
+
+      {%if files.nfse==1%}
+        <div class="service-card green" onclick="window.open(`http://${window.location.host}/arquivosApi/${document.querySelector('#cnpjTXT').innerHTML.slice(4).replace(/[^a-zA-Z0-9]/g, '')}/nfse`, '_blank')">
+          <h3>NFS-e</h3>
+          <p>Emita notas fiscais de serviço eletrônicas</p>
+          <a>Acessar serviço</a>
+        </div>
+      {%endif%}
+
+      {%if files.notasT==1%}
+        <div class="service-card purple" onclick="window.open(`http://${window.location.host}/arquivosApi/${document.querySelector('#cnpjTXT').innerHTML.slice(4).replace(/[^a-zA-Z0-9]/g, '')}/notasT`, '_blank')">
+          <h3>NF-Tomadas</h3>
+          <p>Controle notas fiscais recebidas</p>
+          <a>Acessar serviço</a>
+        </div>
+      {%endif%}
+
+      {%if files.guias==1%}
+        <div class="service-card orange" onclick="window.open(`http://${window.location.host}/arquivosApi/${document.querySelector('#cnpjTXT').innerHTML.slice(4).replace(/[^a-zA-Z0-9]/g, '')}/guias`, '_blank')">
+          <h3>Guias Recolhimento</h3>
+          <p>Gere guias para pagamento de impostos</p>
+          <a>Acessar serviço</a>
+        </div>
+      {%endif%}
+
+      <div class="service-card purple" onclick="window.open(`http://${window.location.host}/arquivosApi/${document.querySelector('#cnpjTXT').innerHTML.slice(4).replace(/[^a-zA-Z0-9]/g, '')}/nfe`, '_blank')">
+        <h3>NF-e</h3>
+        <p>Emita notas fiscais eletrônicas</p>
+        <a>Acessar serviço</a>
+      </div>
+
+      <div class="service-card blue" onclick="window.open(`http://${window.location.host}/arquivosApi/${document.querySelector('#cnpjTXT').innerHTML.slice(4).replace(/[^a-zA-Z0-9]/g, '')}/cte`, '_blank')">
+        <h3>CT-e</h3>
+        <p>Gerir controle de transporte eletrônico</p>
+        <a>Acessar serviço</a>
+      </div>
+    
+    </div>
+  </main>
+</body>
+</html>

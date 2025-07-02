@@ -1,0 +1,26 @@
+  {%extends 'first.html'%}
+
+    {%block link_add%}
+    <link rel="stylesheet" href="{{url_for('static', filename=info_file.0)}}">
+    {%endblock%}
+
+    {%block header_content%}
+    <div class="select-wrapper">
+      <button onclick="window.location.href=`http://${window.location.host}/login/page`">Entrar</button>
+      <button onclick="window.location.href=`http://${window.location.host}/registerAccount/page`">Registre-se</button>
+    </div>
+    {%endblock%}
+
+    {% block main_content %}
+    <div id="mainImage" class="animate-image">
+      <div class="tally-text">
+        <span class="t1">T</span><span class="t2">a</span><span class="t3">l</span><span class="t4">l</span><span class="t1">y</span>
+        <span class="u">u</span><span class="p">p</span>
+      </div>
+      <div class="subtitle">Feitos para Somar</div>
+    </div>
+    {%endblock%}
+
+    {% block footer_content %}
+    
+    {%endblock%}

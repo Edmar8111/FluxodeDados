@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" sizes="16x16 32x32 48x48 64x64" href="http://127.0.0.1:5000/imgtrack/filesIcon.png">
+    <title>Visualizador de Arquivos</title>
+    <link rel="stylesheet" href="{{url_for('static', filename=files.0)}}">
+</head>
+<body>
+    <h2 style="text-align:center;">Arquivos Disponíveis</h2>
+    <div class="arquivo-container">
+        {% for item in items.0 %}
+        <div style='display:none;' class="file-name">{{ item }}</div>
+            
+            <script>
+                if(window.location.href.slice(-4)=='nfse'){
+                    contador=document.querySelectorAll('div.arquivo-container div').length-1
+                    libCall=new Date()
+                    listMonth=new Array()
+                    
+                    function convertMonth(param){
+                        switch(param){
+                            case 1: return 'Jan';
+                            case 2: return 'Fev';
+                            case 3: return 'Mar';
+                            case 4: return 'Abr';
+                            case 5: return 'Mai';
+                            case 6: return 'Jun';
+                            case 7: return 'Jul';
+                            case 8: return 'Ago';
+                            case 9: return 'Set';
+                            case 10: return 'Out';
+                            case 11: return 'Nov';
+                            case 12: return 'Dez';
+                        }
+                    }
+
+                    if(document.querySelectorAll('div.arquivo-container label').length>0){for(a=0;a<document.querySelectorAll('div.arquivo-container label').length;a++){listMonth.push(document.querySelectorAll('div.arquivo-container label')[a].innerHTML)}}
+
+                    if(libCall.getMonth()!=document.querySelectorAll('div.arquivo-container .file-name')[0].innerHTML.slice(4, 5) && document.querySelectorAll('div.arquivo-container label').length>0){
+                        date=`${convertMonth(parseInt(document.querySelectorAll('div.arquivo-container .file-name')[0].innerHTML.slice(4, 5)))}-${libCall.getFullYear()}`    
+                        document.querySelector('div.arquivo-container').innerHTML+= listMonth.includes(date) ? '': `<label for="arquivo">${date}</label>`
+                        listMonth.push(document.querySelectorAll('div.arquivo-container .file-name')[0].innerHTML.slice(4, 10))
+                    }
+                    if(!document.querySelector('div.arquivo-container label'.innerHTML==`${libCall.getMonth()}-2025`)){
+                        date=`${convertMonth(parseInt(document.querySelectorAll('div.arquivo-container .file-name')[0].innerHTML.slice(4, 5)))}-${libCall.getFullYear()}`    
+                        document.querySelector('div.arquivo-container').innerHTML+= listMonth.includes(date) ? '': `<label for="arquivo">${date}</label>`
+                        listMonth.push(document.querySelectorAll('div.arquivo-container .file-name')[0].innerHTML.slice(4, 10))
+                    }
+
+                    tagFormat=` 
+                            <div class="arquivo">
+                                <div class="nome-arquivo">${document.querySelectorAll('div.arquivo-container .file-name')[0].innerHTML}</div>
+                                <a class="botao-ver" href="/arquivosApi/{{items.1}}/{{items.2}}/${document.querySelectorAll('div.arquivo-container .file-name')[0].innerHTML}" target="_blank">Visualizar</a>
+                            </div>        
+                        `
+                        document.querySelector('div.arquivo-container').removeChild(document.querySelector('div.file-name'))
+                        document.querySelector('div.arquivo-container').innerHTML+=tagFormat
+                }else{
+                    tagFormat=` 
+                            <div class="arquivo">
+                                <div class="nome-arquivo">${document.querySelectorAll('div.arquivo-container .file-name')[0].innerHTML}</div>
+                                <a class="botao-ver" href="/arquivosApi/{{items.1}}/{{items.2}}/${document.querySelectorAll('div.arquivo-container .file-name')[0].innerHTML}" target="_blank">Visualizar</a>
+                            </div>        
+                        `
+                    document.querySelector('div.arquivo-container').removeChild(document.querySelector('div.file-name'))
+                    document.querySelector('div.arquivo-container').innerHTML+=tagFormat
+                }
+            </script>
+        {% endfor %}
+    </div>
+</body>
+</html>

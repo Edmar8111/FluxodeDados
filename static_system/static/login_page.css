@@ -1,0 +1,118 @@
+* {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(145deg, #e0f7fa, #f3e5f5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 360px;
+      text-align: center;
+    }
+
+    .brand {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #7c3aed;
+      margin-bottom: 10px;
+    }
+
+    .title {
+      font-size: 1.3rem;
+      color: #3b82f6;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .input-group {
+      text-align: left;
+      margin-bottom: 18px;
+    }
+
+    .input-group label {
+      font-size: 14px;
+      margin-bottom: 6px;
+      display: block;
+      color: #555;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: border 0.3s ease;
+    }
+
+    .input-group input:focus {
+      border-color: #7c3aed;
+      outline: none;
+    }
+
+    .password-toggle {
+      position: relative;
+    }
+
+    .password-toggle input {
+      padding-right: 36px;
+    }
+
+    .toggle-icon {
+      position: absolute;
+      right: 10px;
+      top: 68%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #999;
+    }
+
+    .forgot {
+      display: block;
+      font-size: 13px;
+      color: #3b82f6;
+      text-align: right;
+      margin-bottom: 24px;
+      text-decoration: none;
+    }
+
+    .btn {
+      background: linear-gradient(to right, #3b82f6, #ec4899);
+      border: none;
+      color: white;
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      filter: brightness(1.05);
+    }
+
+    .footer {
+      font-size: 13px;
+      margin-top: 20px;
+    }
+
+    .footer a {
+      color: #ec4899;
+      text-decoration: none;
+      font-weight: 600;
+    }

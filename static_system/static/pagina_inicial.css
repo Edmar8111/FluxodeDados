@@ -1,0 +1,208 @@
+header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      padding: 20px 30px;
+      background-color: #ffffff;
+      border-bottom: 1px solid #e0e0e0;
+      gap: 20px;
+    }
+
+    #logo {
+      width: 135px;
+      cursor: pointer;
+    }
+
+    .header-right {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 16px;
+      justify-content: center;
+    }
+
+    #iconAddCompany {
+      background: #f0f0f0;
+      border: none;
+      border-radius: 8px;
+      padding: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+    }
+
+    #iconAddCompany:hover {
+      background: #e6e6e6;
+      transform: scale(1.05);
+    }
+
+    #iconAddCompany img {
+      width: 24px;
+      height: 24px;
+    }
+
+    .search-container {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      background: #fff;
+      border-radius: 10px;
+      padding: 8px 12px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.06);
+    }
+
+    .search-container select,
+    .search-container input {
+      border: none;
+      background: transparent;
+      font-size: 14px;
+      padding: 6px;
+      outline: none;
+      border-radius: 5px;
+      box-shadow: 2px 2px 3px #fce8b5;
+    }
+
+    .search-container select {
+      font-family: monospace;
+      cursor: pointer;
+    }
+
+    .search-container button {
+      background-color: #3b82f6;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s ease;
+    }
+
+    .search-container button:hover {
+      background-color: #2563eb;
+      transform: scale(1.05);
+    }
+
+    .select-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 14px;
+      font-family: monospace;
+      color: #333;
+    }
+
+    #selectModalidade {
+      padding: 10px 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-family: monospace;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg fill='%23666' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' d='M5.23 7.21a.75.75 0 011.06.02L10 11.584l3.71-4.354a.75.75 0 111.14.976l-4.25 5a.75.75 0 01-1.14 0l-4.25-5a.75.75 0 01.02-1.06z' clip-rule='evenodd' /%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 16px;
+      padding-right: 35px;
+      transition: border 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    #tituloIndex {
+      font-size: 35px;
+      font-weight: bold;
+      background: linear-gradient(90deg, #3b82f6, #ec4899, #f97316);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-align: center;
+      margin: 20px 0;
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      padding: 30px;
+      justify-content: center;
+    }
+
+    .card {
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.08);
+      padding: 20px;
+      transition: 0.3s ease;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      box-shadow: 3px 6px 16px rgba(0, 0, 0, 0.12);
+      transform: translateY(-3px);
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      font-size: 18px;
+      color: #1d2b53;
+    }
+
+    .card a {
+      text-decoration: none;
+      color: #1d2b53;
+    }
+
+    .info {
+      font-size: 14px;
+      margin: 6px 0;
+      display: flex;
+      align-items: center;
+      color: #444;
+    }
+
+    .tags {
+      margin-top: 15px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      font-size: 12px;
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .tag.modalidade {
+      background-color: #f3e9ff;
+      color: #9933cc;
+    }
+
+    .tag.iss {
+      background-color: #ffe5c0;
+      color: #cc6600;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .header-right {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+      }
+
+      .search-container,
+      .select-wrapper,
+      #iconAddCompany {
+        width: 100%;
+      }
+    }

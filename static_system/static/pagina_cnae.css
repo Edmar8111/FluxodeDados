@@ -1,0 +1,182 @@
+.container {
+    max-width: 960px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #5b21b6;
+    font-size: 28px;
+}
+
+p.subtitle {
+    text-align: center;
+    font-size: 15px;
+    color: #555;
+    margin-bottom: 40px;
+}
+
+.search-box {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 24px;
+}
+
+.search-box h3 {
+    font-size: 16px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.search-input-wrapper {
+    display: flex;
+    gap: 12px;
+}
+
+input[type="text"] {
+    flex: 1;
+    padding: 12px 16px;
+    border: 2px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    transition: border 0.2s;
+}
+
+input[type="text"]:focus {
+    border-color: #6366f1;
+}
+
+button {
+    padding: 12px 20px;
+    background: linear-gradient(to right, #6366f1, #9333ea);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: transform 0.2s ease;
+}
+
+button:hover {
+    transform: scale(1.03);
+}
+
+.result-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 24px;
+    margin-top: 30px;
+    display: none;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+.section-box {
+    margin-bottom: 24px;
+}
+
+.section-box h4 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.section-box .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+}
+
+.card-info {
+    background-color: #f9fafb;
+    border-radius: 10px;
+    padding: 14px 18px;
+    box-shadow: inset 0 0 0 1px #e0e0e0;
+}
+
+.card-info .label {
+    font-size: 13px;
+    color: #6b7280;
+}
+
+.card-info .value {
+    font-size: 15px;
+    font-weight: 500;
+    color: #111827;
+    margin-top: 4px;
+}
+
+.ref-box {
+    background-color: #e7f1ff;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #1e3a8a;
+    margin-top: 20px;
+    border-left: 4px solid #3b82f6;
+}
+
+.fiscal-box {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 20px;
+    background-color: #f9fafb;
+    margin-top: 10px;
+}
+
+.fiscal-grid {
+    display: flex;
+    gap: 16px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.fiscal-card {
+    flex: 1;
+    min-width: 140px;
+    text-align: center;
+}
+
+.fiscal-card .label {
+    font-size: 13px;
+    color: #6b7280;
+}
+
+.fiscal-card .value {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 4px;
+}
+
+.anexo {
+    color: #6366f1;
+}
+
+.fator {
+    color: #10b981;
+}
+
+.aliquota {
+    color: #9333ea;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
