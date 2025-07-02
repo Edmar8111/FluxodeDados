@@ -1,0 +1,108 @@
+:root {
+      --cor-clara: #f3f4f6;
+      --cor-principal: #4f46e5;
+      --cor-fundo: #e0e7ff;
+      --cor-texto: #111827;
+      --borda-radius: 12px;
+      --tempo-transicao: 0.4s;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background: var(--cor-fundo);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: white;
+      padding: 2rem;
+      border-radius: var(--borda-radius);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    h2 {
+      text-align: center;
+      color: var(--cor-texto);
+      margin-bottom: 1rem;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      transition: transform var(--tempo-transicao) ease;
+    }
+
+    input {
+      padding: 0.75rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    button {
+      padding: 0.75rem;
+      background: var(--cor-principal);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background var(--tempo-transicao);
+    }
+
+    button:hover {
+      background: #4338ca;
+    }
+
+    .toggle {
+      text-align: center;
+      margin-top: 1rem;
+      color: var(--cor-texto);
+      font-size: 0.9rem;
+    }
+
+    .toggle span {
+      color: var(--cor-principal);
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .forms-wrapper {
+      position: relative;
+      width: 200%;
+      display: flex;
+      transition: transform var(--tempo-transicao) ease;
+    }
+
+    .form-container {
+      width: 50%;
+      padding: 0 1rem;
+    }
+
+    .container.login-mode .forms-wrapper {
+      transform: translateX(0%);
+    }
+
+    .container.register-mode .forms-wrapper {
+      transform: translateX(-50%);
+    }
+
+    @media (max-width: 500px) {
+      .container {
+        padding: 1.5rem 1rem;
+      }
+    }

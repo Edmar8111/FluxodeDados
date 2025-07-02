@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login & Registro</title>
+  <link rel="stylesheet" href="/static/css/login_page.css">
+  <script src="/static/javascript/login_page.js" defer></script>
+</head>
+<body>
+  <div class="container login-mode" id="container">
+    {%if key_register%}
+        <script defer>
+          if('{{key_register}}'){
+            document.querySelector('div#container').className='container register-mode'}
+          else{document.querySelector('div#container').className='container login-mode'}
+        </script>
+    {%endif%}
+  <div class="forms-wrapper">
+    
+    <!-- Login -->
+    <div class="form-container">
+      <h2>Entrar</h2>
+      <form id="form-login">
+        <input type="text" placeholder="Usuário" required />
+        <input type="password" placeholder="Senha" required />
+        <button type="submit">Login</button>
+      </form>
+      <div class="toggle">
+        Não tem conta? <span onclick="mudarParaRegistro()">Cadastre-se</span>
+      </div>
+    </div>
+
+    <!-- Registro -->
+    <div class="form-container">
+      <h2>Criar Conta</h2>
+      <form id="form-registro">
+        <input type="text" placeholder="Nome de usuário" required />
+        <input type="email" placeholder="E-mail" required />
+        <input type="password" placeholder="Senha" required />
+        <button type="submit">Registrar</button>
+      </form>
+      <div class="toggle">
+        Já tem conta? <span onclick="mudarParaLogin()">Entrar</span>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
