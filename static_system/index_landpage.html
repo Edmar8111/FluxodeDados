@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ContabPro</title>
+    <style>
+        body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f9fcff;
+        }
+
+        header {
+        background-color: white;
+        border-bottom: 1px solid #ddd;
+        padding: 15px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        }
+
+        .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        }
+
+        .logo span {
+        background-color: #3b82f6;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 6px;
+        }
+
+        nav ul.menu {
+        list-style: none;
+        display: flex;
+        gap: 20px;
+        margin: 0;
+        padding: 0;
+        }
+
+        nav ul.menu li a {
+        text-decoration: none;
+        color: #222;
+        font-weight: 500;
+        }
+
+        .contato-info {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        }
+
+        .botao-consultoria {
+        background-color: #3b82f6;
+        color: white;
+        padding: 8px 15px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+        }
+
+        main {
+        padding: 30px 20px;
+        }
+
+        .servicos {
+        text-align: center;
+        padding: 40px 20px;
+        }
+
+        .servicos h2 {
+        font-size: 2rem;
+        margin-bottom: 10px;
+        }
+
+        .servicos h2 span {
+        color: #3b82f6;
+        }
+
+        .servicos p {
+        color: #555;
+        margin-bottom: 40px;
+        }
+
+        .cards-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        }
+
+        .card-servico {
+        background-color: white;
+        border: 2px solid #3b82f6;
+        border-radius: 10px;
+        max-width: 320px;
+        flex: 1 1 300px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .card-servico .tag {
+        background-color: #3b82f6;
+        color: white;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        margin-bottom: 10px;
+        display: inline-block;
+        }
+
+        .card-servico .icon {
+        font-size: 2rem;
+        background-color: #3b82f6;
+        color: white;
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        display: inline-block;
+        }
+
+        .card-servico h3 {
+        margin: 10px 0;
+        font-size: 1.2rem;
+        }
+
+        .card-servico p {
+        color: #555;
+        font-size: 0.95rem;
+        }
+
+        .card-servico ul {
+        text-align: left;
+        margin-top: 15px;
+        margin-bottom: 20px;
+        padding-left: 20px;
+        color: #333;
+        }
+
+        .card-servico ul li::before {
+        content: "✔️";
+        margin-right: 8px;
+        color: #10b981;
+        }
+
+        .card-servico a {
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 10px;
+        padding: 10px 20px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        transition: background 0.3s;
+        font-weight: bold;
+        color: #222;
+        }
+
+        .card-servico a:hover {
+        background-color: #f0f0f0;
+        }
+
+        .sobre {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 40px;
+        margin-top: 40px;
+        padding: 40px 20px;
+        }
+
+        .sobre-texto {
+        flex: 1 1 500px;
+        }
+
+        .sobre-texto h2 {
+        font-size: 2.2rem;
+        margin-bottom: 20px;
+        }
+
+        .sobre-texto h2 span {
+        color: #3b82f6;
+        }
+
+        .sobre-texto p {
+        margin-bottom: 20px;
+        color: #444;
+        line-height: 1.6;
+        }
+
+        .sobre-metricas {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+        margin: 30px 0;
+        }
+
+        .metric {
+        text-align: center;
+        flex: 1 1 120px;
+        }
+
+        .metric h3 {
+        color: #3b82f6;
+        font-size: 2rem;
+        }
+
+        .metric span {
+        font-size: 0.9rem;
+        color: #666;
+        }
+
+        .sobre-texto a {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 10px 20px;
+        background-color: #3b82f6;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        }
+
+        .valores {
+        flex: 1 1 300px;
+        }
+
+        .valores h3 {
+        margin-bottom: 20px;
+        font-size: 1.5rem;
+        }
+
+        .valor-item {
+        display: flex;
+        align-items: center;
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        gap: 15px;
+        }
+
+        .valor-icon {
+        background-color: #3b82f6;
+        color: white;
+        padding: 10px;
+        border-radius: 10px;
+        font-size: 1.2rem;
+        }
+
+        .valor-info strong {
+        display: block;
+        margin-bottom: 5px;
+        }
+
+        .contato {
+        padding: 60px 20px;
+        background-color: #ffffff;
+        }
+
+        .contato h2 {
+        text-align: center;
+        font-size: 2rem;
+        }
+
+        .contato h2 span {
+        color: #3b82f6;
+        }
+
+        .contato p {
+        text-align: center;
+        color: #555;
+        margin-top: 10px;
+        margin-bottom: 40px;
+        }
+
+        .contato-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+        justify-content: center;
+        }
+
+        .form-contato,
+        .info-contato {
+        flex: 1 1 400px;
+        background: #f8f9fb;
+        border-radius: 10px;
+        padding: 25px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-contato input,
+        .form-contato select,
+        .form-contato textarea {
+        width: 100%;
+        padding: 10px;
+        margin-top: 8px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 1rem;
+        }
+
+        .form-contato button {
+        background: linear-gradient(to right, #3b82f6, #2563eb);
+        color: white;
+        border: none;
+        padding: 12px;
+        width: 100%;
+        border-radius: 6px;
+        font-weight: bold;
+        cursor: pointer;
+        }
+
+        .info-bloco {
+        background: white;
+        padding: 15px 20px;
+        margin-bottom: 15px;
+        border-radius: 10px;
+        display: flex;
+        align-items: flex-start;
+        gap: 15px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .atendimento {
+        text-align: center;
+        margin-top: 25px;
+        background: linear-gradient(to right, #3b82f6, #2563eb);
+        color: white;
+        padding: 20px;
+        border-radius: 12px;
+        }
+
+        .atendimento button {
+        background: white;
+        color: #2563eb;
+        border: none;
+        padding: 10px 25px;
+        border-radius: 6px;
+        font-weight: bold;
+        margin-top: 10px;
+        cursor: pointer;
+        }
+
+        footer {
+        padding: 30px;
+        text-align: center;
+        background-color: #f1f1f1;
+        color: #555;
+        margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+        nav ul.menu {
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .contato-info {
+            flex-direction: column;
+            align-items: flex-start;
+            margin-top: 10px;
+        }
+
+        header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .contato-container,
+        .sobre {
+            flex-direction: column;
+        }
+
+        .sobre-metricas {
+            justify-content: center;
+        }
+        }
+        .footer-dark {
+            background-color: #111827;
+            color: #e5e7eb;
+            padding: 50px 20px 20px;
+            font-size: 0.95rem;
+            }
+
+        .footer-dark-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: space-between;
+            }
+
+        .footer-col {
+            flex: 1 1 250px;
+            }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            }
+
+        .footer-logo span {
+            background-color: #3b82f6;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            }
+
+        .footer-col p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+            }
+
+        .footer-col h4 {
+            font-size: 1.1rem;
+            color: #ffffff;
+            margin-bottom: 12px;
+            }
+
+        .footer-col ul {
+            list-style: none;
+            padding: 0;
+            }
+
+        .footer-col ul li {
+            margin-bottom: 8px;
+            }
+
+        .footer-col ul li a {
+            text-decoration: none;
+            color: #d1d5db;
+            transition: color 0.3s;
+            }
+
+        .footer-col ul li a:hover {
+            color: #3b82f6;
+            }
+
+        .footer-socials a {
+            display: inline-block;
+            margin-right: 10px;
+            background-color: #1f2937;
+            padding: 8px 10px;
+            border-radius: 6px;
+            color: #f3f4f6;
+            font-size: 1.1rem;
+            transition: background 0.3s;
+            }
+
+        .footer-socials a:hover {
+            background-color: #3b82f6;
+            }
+
+        .footer-divider {
+            border: none;
+            border-top: 1px solid #374151;
+            margin: 30px 0 20px;
+            }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: #9ca3af;
+            padding-top: 10px;
+            }
+
+        .footer-bottom .footer-links a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: #9ca3af;
+            }
+
+        .footer-bottom .footer-links a:hover {
+            color: #3b82f6;
+            }
+
+            @media (max-width: 768px) {
+        .footer-dark-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+        .footer-bottom {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+
+        .footer-bottom .footer-links a {
+                margin: 0 10px;
+            }
+            }
+
+  </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <span>C</span> ContabPro
+    </div>
+    <ul class="menu">
+        <li><a href="#inicio">Início</a></li>
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#depoimentos">Depoimentos</a></li>
+        <li><a href="#contato">Contato</a></li>
+    </ul>
+    <div class="contato-info">
+        <span>📞 (11) 3456-7890</span>
+        <a href="#" class="botao-consultoria">Consultoria Gratuita</a>
+    </div>
+</header>
+
+<main>
+    <section id="inicio" class="inicio"></section>
+
+    <section id="servicos" class="servicos">
+        <h2>Nossos <span>Serviços</span></h2>
+        <p>Soluções completas em contabilidade, sempre focadas no crescimento e sucesso do seu negócio.</p>
+
+        <div class="cards-container">
+            <div class="card-servico">
+                <div class="tag">Mais Popular</div>
+                <div class="icon">🧮</div>
+                <h3>Declaração de Imposto de Renda</h3>
+                <p>Serviço completo para pessoa física e jurídica, garantindo máxima restituição e conformidade.</p>
+                <ul>
+                    <li>Análise de deduções</li>
+                    <li>Acompanhamento até restituição</li>
+                    <li>Suporte especializado</li>
+                </ul>
+                <a href="#">Saiba Mais →</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="sobre" class="sobre">
+        <div class="sobre-texto">
+            <h2>Sobre a <span>ContabPro</span></h2>
+            <p>Fundada em 2008, a ContabPro nasceu da visão de oferecer serviços contábeis de excelência, combinando expertise técnica com tecnologia de ponta para entregar resultados excepcionais aos nossos clientes.</p>
+            <p>Nossa equipe é formada por profissionais qualificados e especializados, sempre atualizados com as mudanças na legislação e as melhores práticas do mercado. Acreditamos que uma contabilidade bem estruturada é a base para o sucesso de qualquer negócio.</p>
+
+            <div class="sobre-metricas">
+                <div class="metric">
+                    <h3>500+</h3>
+                    <span>Clientes Ativos</span>
+                </div>
+                <div class="metric">
+                    <h3>15+</h3>
+                    <span>Anos de Experiência</span>
+                </div>
+                <div class="metric">
+                    <h3>98%</h3>
+                    <span>Satisfação do Cliente</span>
+                </div>
+                <div class="metric">
+                    <h3>24h</h3>
+                    <span>Suporte Técnico</span>
+                </div>
+            </div>
+
+            <a href="#">Nossa História Completa →</a>
+        </div>
+
+        <div class="valores">
+            <h3>Nossos Valores</h3>
+
+            <div class="valor-item">
+                <div class="valor-icon">🏅</div>
+                <div class="valor-info">
+                    <strong>Excelência</strong>
+                    Comprometimento com a qualidade em cada serviço prestado.
+                </div>
+            </div>
+
+            <div class="valor-item">
+                <div class="valor-icon">🎯</div>
+                <div class="valor-info">
+                    <strong>Precisão</strong>
+                    Resultados exatos e confiáveis para seu negócio prosperar.
+                </div>
+            </div>
+
+            <div class="valor-item">
+                <div class="valor-icon">🤝</div>
+                <div class="valor-info">
+                    <strong>Parceria</strong>
+                    Relacionamento próximo e duradouro com nossos clientes.
+                </div>
+            </div>
+
+            <div class="valor-item">
+                <div class="valor-icon">💙</div>
+                <div class="valor-info">
+                    <strong>Dedicação</strong>
+                    Paixão pelo que fazemos e cuidado com cada detalhe.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="depoimentos" class="depoimentos"></section>
+    <section id="contato" class="contato">
+        <h2>Entre em <span>Contato</span></h2>
+      <p>Está pronto para transformar a gestão contábil da sua empresa? Nossa equipe está aqui para ajudar você.</p>
+
+      <div class="contato-container">
+        <div class="form-contato">
+          <h3>Solicite uma Consultoria Gratuita</h3>
+          <input type="text" placeholder="Seu nome" />
+          <input type="email" placeholder="seu@email.com" />
+          <input type="text" placeholder="(11) 99999-9999" />
+          <input type="text" placeholder="Nome da empresa" />
+          <select>
+            <option>Selecione um serviço</option>
+            <option>Contabilidade</option>
+            <option>Folha de Pagamento</option>
+            <option>Fiscal e Tributário</option>
+          </select>
+          <textarea rows="4" placeholder="Conte-nos mais sobre suas necessidades..."></textarea>
+          <button>Enviar Solicitação</button>
+          <p style="font-size: 0.85rem; color: #888;">Seus dados estão protegidos e não serão compartilhados com terceiros.</p>
+        </div>
+
+        <div class="info-contato">
+          <div class="info-bloco"><strong>Telefone</strong><br>(11) 3456-7890<br>(11) 99999-9999</div>
+          <div class="info-bloco"><strong>E-mail</strong><br>contato@contabpro.com.br<br>comercial@contabpro.com.br</div>
+          <div class="info-bloco"><strong>Endereço</strong><br>Rua das Empresas, 123<br>Centro – São Paulo/SP</div>
+          <div class="info-bloco"><strong>Horário</strong><br>Segunda a Sexta: 8h às 18h<br>Sábado: 8h às 12h</div>
+          <div class="atendimento">
+            <strong>Atendimento Especializado</strong>
+            <p>Nossa equipe está pronta para oferecer soluções personalizadas para o seu negócio.</p>
+            <button>Agendar Reunião</button>
+          </div>
+        </div>
+      </div>
+    </section>
+</main>
+
+<footer class="footer-dark">
+  <div class="footer-dark-container">
+    <div class="footer-col">
+      <div class="footer-logo">
+        <span>C</span> <strong>ContabPro</strong>
+      </div>
+      <p>
+        Há mais de 15 anos oferecendo soluções contábeis de excelência para
+        empresas que buscam crescimento sustentável e conformidade fiscal.
+      </p>
+      <div class="footer-socials">
+        <a href="#"><span>📘</span></a>
+        <a href="#"><span>📸</span></a>
+        <a href="#"><span>💼</span></a>
+        <a href="#"><span>🐦</span></a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4>Links Rápidos</h4>
+      <ul>
+        <li><a href="#inicio">Início</a></li>
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#sobre">Sobre Nós</a></li>
+        <li><a href="#depoimentos">Depoimentos</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Contato</h4>
+      <p>📞 (11) 3456-7890</p>
+      <p>✉️ contato@contabpro.com.br</p>
+      <p>📍 Rua das Empresas, 123<br>Centro - São Paulo/SP</p>
+    </div>
+  </div>
+
+  <hr class="footer-divider" />
+
+  <div class="footer-bottom">
+    <p>© 2024 ContabPro. Todos os direitos reservados.</p>
+    <div class="footer-links">
+      <a href="#">Política de Privacidade</a>
+      <a href="#">Termos de Uso</a>
+      <a href="#">Cookies</a>
+    </div>
+  </div>
+</footer>
+
+
+</body>
+</html>
